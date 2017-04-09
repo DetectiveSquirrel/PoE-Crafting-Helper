@@ -20,8 +20,6 @@ namespace PoECrafter
             InitializeComponent();
 
             LoadComboItems();
-
-            //Fill();
         }
 
         public void ItemInfoTextBox_TextChanged(object sender, EventArgs e)
@@ -74,48 +72,6 @@ namespace PoECrafter
         {
             RunSearch();
         }
-        
-        // Fill mod list
-        public void Fill()
-        {
-            itemMod1.Items.Add(new ComboBoxItem("None", false));
-            itemMod1.Items.Add(new ComboBoxItem("Reflects # Physical Damage to Melee Attackers", true));
-            itemMod1.Items.Add(new ComboBoxItem("#% increased Energy Shield", true));
-            itemMod1.Items.Add(new ComboBoxItem("(BROKEN) #% increased Energy Shield, #% increased Stun and Block Recovery", true));
-            itemMod1.Items.Add(new ComboBoxItem("+# to maximum Energy Shield", true));
-            itemMod1.Items.Add(new ComboBoxItem("+# to maximum Life", true));
-            itemMod1.Items.Add(new ComboBoxItem("+# to maximum Mana", true));
-
-            itemMod1.Items.Add(new ComboBoxItem("+#% to Chaos Resistance", false));
-            itemMod1.Items.Add(new ComboBoxItem("+#% to Cold Resistance", false));
-            itemMod1.Items.Add(new ComboBoxItem("+#% to Fire Resistance", false));
-            itemMod1.Items.Add(new ComboBoxItem("+#% to Lightning Resistance", false));
-            itemMod1.Items.Add(new ComboBoxItem("+#% to Chaos Resistance", false));
-            itemMod1.Items.Add(new ComboBoxItem("# Life Regenerated per second", false));
-            itemMod1.Items.Add(new ComboBoxItem("#% reduced Attribute Requirements", false));
-            itemMod1.Items.Add(new ComboBoxItem("#% increased Stun and Block Recovery", false));
-
-            itemMod2.Items.Add(new ComboBoxItem("None", false));
-            itemMod2.Items.Add(new ComboBoxItem("Reflects # Physical Damage to Melee Attackers", true));
-            itemMod2.Items.Add(new ComboBoxItem("#% increased Energy Shield", true));
-            itemMod2.Items.Add(new ComboBoxItem("(BROKEN) #% increased Energy Shield, #% increased Stun and Block Recovery", true));
-            itemMod2.Items.Add(new ComboBoxItem("+# to maximum Energy Shield", true));
-            itemMod2.Items.Add(new ComboBoxItem("+# to maximum Life", true));
-            itemMod2.Items.Add(new ComboBoxItem("+# to maximum Mana", true));
-
-            itemMod2.Items.Add(new ComboBoxItem("+#% to Chaos Resistance", false));
-            itemMod2.Items.Add(new ComboBoxItem("+#% to Cold Resistance", false));
-            itemMod2.Items.Add(new ComboBoxItem("+#% to Fire Resistance", false));
-            itemMod2.Items.Add(new ComboBoxItem("+#% to Lightning Resistance", false));
-            itemMod2.Items.Add(new ComboBoxItem("+#% to Chaos Resistance", false));
-            itemMod2.Items.Add(new ComboBoxItem("# Life Regenerated per second", false));
-            itemMod2.Items.Add(new ComboBoxItem("#% reduced Attribute Requirements", false));
-            itemMod2.Items.Add(new ComboBoxItem("#% increased Stun and Block Recovery", false));
-
-            // Force affix selection to be blank
-            itemMod1.SelectedIndex = 0;
-            itemMod2.SelectedIndex = 0;
-        }
 
         public class Affix
         {
@@ -126,6 +82,7 @@ namespace PoECrafter
         public class RootObject
         {
             public List<Affix> ESChest { get; set; }
+            public List<Affix> CobaltJewel { get; set; }
         }
 
 
@@ -135,7 +92,7 @@ namespace PoECrafter
         {
             var str = File.ReadAllText("AffixList.JSON");
             var x = JsonConvert.DeserializeObject<RootObject>(str);
-            foreach (var Affix in x.ESChest)
+            foreach (var Affix in x.CobaltJewel)
             {
                 itemMod1.Items.Add(new ComboBoxItem(Affix.AffixName, Affix.Prefix));
                 itemMod2.Items.Add(new ComboBoxItem(Affix.AffixName, Affix.Prefix));
@@ -144,6 +101,11 @@ namespace PoECrafter
             // Force affix selection to be blank
             itemMod1.SelectedIndex = 0;
             itemMod2.SelectedIndex = 0;
+        }
+
+        private void itemTypeBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 

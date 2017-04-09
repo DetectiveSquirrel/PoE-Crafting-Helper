@@ -37,6 +37,7 @@
             this.itemMod2Value = new System.Windows.Forms.NumericUpDown();
             this.buttonTestItem = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.itemTypeBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.itemMod1Value)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemMod2Value)).BeginInit();
             this.SuspendLayout();
@@ -50,7 +51,7 @@
             this.ItemInfoTextBoxParsed.Multiline = true;
             this.ItemInfoTextBoxParsed.Name = "ItemInfoTextBoxParsed";
             this.ItemInfoTextBoxParsed.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.ItemInfoTextBoxParsed.Size = new System.Drawing.Size(399, 251);
+            this.ItemInfoTextBoxParsed.Size = new System.Drawing.Size(399, 314);
             this.ItemInfoTextBoxParsed.TabIndex = 1;
             // 
             // ItemInfoTextBox
@@ -59,7 +60,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ItemInfoTextBox.Location = new System.Drawing.Point(418, 110);
             this.ItemInfoTextBox.Name = "ItemInfoTextBox";
-            this.ItemInfoTextBox.Size = new System.Drawing.Size(400, 251);
+            this.ItemInfoTextBox.Size = new System.Drawing.Size(400, 314);
             this.ItemInfoTextBox.TabIndex = 2;
             this.ItemInfoTextBox.Text = resources.GetString("ItemInfoTextBox.Text");
             this.ItemInfoTextBox.TextChanged += new System.EventHandler(this.ItemInfoTextBox_TextChanged);
@@ -127,11 +128,24 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "Placeholder for item data\r\nYou can paste any item here if you wish\r\n";
             // 
+            // itemTypeBox
+            // 
+            this.itemTypeBox.FormattingEnabled = true;
+            this.itemTypeBox.Items.AddRange(new object[] {
+            "CobaltJewel",
+            "ESChest"});
+            this.itemTypeBox.Location = new System.Drawing.Point(418, 16);
+            this.itemTypeBox.Name = "itemTypeBox";
+            this.itemTypeBox.Size = new System.Drawing.Size(286, 21);
+            this.itemTypeBox.TabIndex = 9;
+            this.itemTypeBox.SelectedIndexChanged += new System.EventHandler(this.itemTypeBox_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(830, 373);
+            this.ClientSize = new System.Drawing.Size(830, 436);
+            this.Controls.Add(this.itemTypeBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonTestItem);
             this.Controls.Add(this.itemMod2Value);
@@ -161,6 +175,7 @@
         private System.Windows.Forms.NumericUpDown itemMod2Value;
         private System.Windows.Forms.Button buttonTestItem;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox itemTypeBox;
     }
 }
 
