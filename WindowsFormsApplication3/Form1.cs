@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -17,7 +19,9 @@ namespace PoECrafter
         {
             InitializeComponent();
 
-            Fill();
+            LoadComboItems();
+
+            //Fill();
         }
 
         public void ItemInfoTextBox_TextChanged(object sender, EventArgs e)
@@ -107,6 +111,35 @@ namespace PoECrafter
             itemMod2.Items.Add(new ComboBoxItem("# Life Regenerated per second", false));
             itemMod2.Items.Add(new ComboBoxItem("#% reduced Attribute Requirements", false));
             itemMod2.Items.Add(new ComboBoxItem("#% increased Stun and Block Recovery", false));
+
+            // Force affix selection to be blank
+            itemMod1.SelectedIndex = 0;
+            itemMod2.SelectedIndex = 0;
+        }
+
+        public class Affix
+        {
+            public string AffixName { get; set; }
+            public bool Prefix { get; set; }
+        }
+
+        public class RootObject
+        {
+            public List<Affix> ESChest { get; set; }
+        }
+
+
+        // Then you load int your comboBox
+
+        private void LoadComboItems()
+        {
+            var str = File.ReadAllText("AffixList.JSON");
+            var x = JsonConvert.DeserializeObject<RootObject>(str);
+            foreach (var Affix in x.ESChest)
+            {
+                itemMod1.Items.Add(new ComboBoxItem(Affix.AffixName, Affix.Prefix));
+                itemMod2.Items.Add(new ComboBoxItem(Affix.AffixName, Affix.Prefix));
+            }
 
             // Force affix selection to be blank
             itemMod1.SelectedIndex = 0;

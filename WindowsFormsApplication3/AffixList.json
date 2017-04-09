@@ -1,0 +1,60 @@
+{
+  "ESChest": [
+    {
+      "AffixName": "None",
+      "Prefix": false
+    },
+    {
+      "AffixName": "+# to maximum Energy Shield",
+      "Prefix": true
+    },
+    {
+      "AffixName": "Reflects # Physical Damage to Melee Attackers",
+      "Prefix": true
+    },
+    {
+      "AffixName": "#% increased Energy Shield",
+      "Prefix": true
+    },
+    {
+      "AffixName": "(BROKEN) #% increased Energy Shield, #% increased Stun and Block Recovery",
+      "Prefix": true
+    },
+    {
+      "AffixName": "+# to maximum Life",
+      "Prefix": true
+    },
+    {
+      "AffixName": "+# to maximum Mana",
+      "Prefix": true
+    },
+    {
+      "AffixName": "+#% to Chaos Resistance",
+      "Prefix": false
+    },
+    {
+      "AffixName": "+#% to Cold Resistance",
+      "Prefix": false
+    },
+    {
+      "AffixName": "+#% to Fire Resistance",
+      "Prefix": false
+    },
+    {
+      "AffixName": "+#% to Lightning Resistance",
+      "Prefix": false
+    },
+    {
+      "AffixName": "# Life Regenerated per second",
+      "Prefix": false
+    },
+    {
+      "AffixName": "#% reduced Attribute Requirements",
+      "Prefix": false
+    },
+    {
+      "AffixName": "#% increased Stun and Block Recovery",
+      "Prefix": false
+    }
+  ]
+}
