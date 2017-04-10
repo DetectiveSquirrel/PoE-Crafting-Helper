@@ -19,7 +19,9 @@ namespace PoECrafter
         {
             InitializeComponent();
 
-            LoadComboItems();
+            // Select and load first Item Type and populate the Mod Selectors
+            itemTypeBox.SelectedIndex = 0;
+            LoadComboItems(itemTypeBox.Text);
         }
 
         public void ItemInfoTextBox_TextChanged(object sender, EventArgs e)
@@ -56,9 +58,9 @@ namespace PoECrafter
             ItemInfoTextBoxParsed.Clear();
 
             string[] ItemData = Item.SplitLines(ItemInfoTextBox.Text);
-            string[] WantedModsText = { itemMod1.Text, itemMod2.Text };
-            decimal[] WantedModsValue = { itemMod1Value.Value, itemMod2Value.Value };
-            bool[] Prefix = { ((ComboBoxItem)itemMod1.SelectedItem).AffixMod, ((ComboBoxItem)itemMod2.SelectedItem).AffixMod };
+            string[] WantedModsText = { itemMod1.Text, itemMod2.Text, itemMod3.Text, itemMod4.Text, itemMod5.Text, itemMod6.Text };
+            decimal[] WantedModsValue = { itemMod1Value.Value, itemMod2Value.Value, itemMod3Value.Value, itemMod4Value.Value, itemMod5Value.Value, itemMod6Value.Value };
+            bool[] Prefix = { ((ComboBoxItem)itemMod1.SelectedItem).AffixMod, ((ComboBoxItem)itemMod2.SelectedItem).AffixMod, ((ComboBoxItem)itemMod3.SelectedItem).AffixMod, ((ComboBoxItem)itemMod4.SelectedItem).AffixMod, ((ComboBoxItem)itemMod5.SelectedItem).AffixMod, ((ComboBoxItem)itemMod6.SelectedItem).AffixMod };
 
             FindMods(ItemData, WantedModsText, WantedModsValue, Prefix);
         }
@@ -471,23 +473,9 @@ namespace PoECrafter
 
         // Then you load int your comboBox
 
-        private void LoadComboItems()
+        private void LoadComboItems(string selected)
         {
-            var str = File.ReadAllText("AffixList.JSON");
-            var x = JsonConvert.DeserializeObject<RootObject>(str).AffixList;
-            foreach (var Affix in x.EnergyShieldChest)
-            {
-                itemMod1.Items.Add(new ComboBoxItem(Affix.AffixName, Affix.Prefix));
-                itemMod2.Items.Add(new ComboBoxItem(Affix.AffixName, Affix.Prefix));
-            }
-
-            // Force affix selection to be the first option to stop the error of trying to view its prefix if it does not have one
-            itemMod1.SelectedIndex = 0;
-            itemMod2.SelectedIndex = 0;
-        }
-
-        private void NewLoadComboItems(string selected)
-        {
+            // If changes are made to .JSON file they will be reloaded without the need to reload the program
             var str = File.ReadAllText("AffixList.JSON");
             var x = JsonConvert.DeserializeObject<RootObject>(str).AffixList;
 
@@ -507,7 +495,7 @@ namespace PoECrafter
                     }
                     break;
                 default:
-                    PopulateComboBox("ERROR", false);
+                    PopulateComboBox("BLANK", false);
                     break;
             } 
             #endregion
@@ -515,19 +503,31 @@ namespace PoECrafter
             // Force affix selection to be the first option to stop the error of trying to view its prefix if it does not have one
             itemMod1.SelectedIndex = 0;
             itemMod2.SelectedIndex = 0;
+            itemMod3.SelectedIndex = 0;
+            itemMod4.SelectedIndex = 0;
+            itemMod5.SelectedIndex = 0;
+            itemMod6.SelectedIndex = 0;
         }
 
         private void PopulateComboBox(string affixName, bool prefix)
         {
             itemMod1.Items.Add(new ComboBoxItem(affixName, prefix));
             itemMod2.Items.Add(new ComboBoxItem(affixName, prefix));
+            itemMod3.Items.Add(new ComboBoxItem(affixName, prefix));
+            itemMod4.Items.Add(new ComboBoxItem(affixName, prefix));
+            itemMod5.Items.Add(new ComboBoxItem(affixName, prefix));
+            itemMod6.Items.Add(new ComboBoxItem(affixName, prefix));
         }
 
         private void itemTypeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             itemMod1.Items.Clear();
             itemMod2.Items.Clear();
-            NewLoadComboItems(itemTypeBox.Text);
+            itemMod3.Items.Clear();
+            itemMod4.Items.Clear();
+            itemMod5.Items.Clear();
+            itemMod6.Items.Clear();
+            LoadComboItems(itemTypeBox.Text);
 
         }
     }
