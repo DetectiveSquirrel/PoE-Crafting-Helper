@@ -491,6 +491,7 @@ namespace PoECrafter
             var str = File.ReadAllText("AffixList.JSON");
             var x = JsonConvert.DeserializeObject<RootObject>(str).AffixList;
 
+            #region CraftingSelection
             switch (selected)
             {
                 case "EnergyShieldChest":
@@ -508,7 +509,8 @@ namespace PoECrafter
                 default:
                     PopulateComboBox("FAIL", false);
                     break;
-            }
+            } 
+            #endregion
 
             // Force affix selection to be the first option to stop the error of trying to view its prefix if it does not have one
             itemMod1.SelectedIndex = 0;
