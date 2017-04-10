@@ -133,7 +133,7 @@
             this.itemTypeBox.FormattingEnabled = true;
             this.itemTypeBox.Items.AddRange(new object[] {
             "CobaltJewel",
-            "ESChest"});
+            "EnergyShieldChest"});
             this.itemTypeBox.Location = new System.Drawing.Point(418, 16);
             this.itemTypeBox.Name = "itemTypeBox";
             this.itemTypeBox.Size = new System.Drawing.Size(286, 21);
