@@ -494,20 +494,20 @@ namespace PoECrafter
             #region CraftingSelection
             switch (selected)
             {
-                case "EnergyShieldChest":
+                case "Energy Shield Chest":
                     foreach (var Affix in x.EnergyShieldChest)
                     {
                         PopulateComboBox(Affix.AffixName, Affix.Prefix);
                     }
                     break;
-                case "CobaltJewel":
+                case "Cobalt Jewel":
                     foreach (var Affix in x.CobaltJewel)
                     {
                         PopulateComboBox(Affix.AffixName, Affix.Prefix);
                     }
                     break;
                 default:
-                    PopulateComboBox("FAIL", false);
+                    PopulateComboBox("ERROR", false);
                     break;
             } 
             #endregion
