@@ -500,7 +500,7 @@ namespace PoECrafter
                         PopulateComboBox(Affix.AffixName, Affix.Prefix);
                     }
                     break;
-                case "Cobalt Jewel":
+                case "Cobalt Jewels":
                     foreach (var Affix in x.CobaltJewel)
                     {
                         PopulateComboBox(Affix.AffixName, Affix.Prefix);
