@@ -1,15 +1,12 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
+using WindowsFormsApplication3;
 
 namespace PoECrafter
 {
@@ -30,6 +27,95 @@ namespace PoECrafter
             itemMod6.Items.Clear();
             //Load some shit
             LoadComboItems(itemTypeBox.Text);
+        }
+
+        [DllImport("user32.dll", EntryPoint = "SetCursorPos")]
+        public static extern bool SetCursorPos(int X, int Y);
+        [DllImport("user32.dll")]
+        public static extern bool ShowWindowAsync(HandleRef hWnd, int nCmdShow);
+        [DllImport("user32.dll")]
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
+        public const int SW_RESTORE = 9;
+        [DllImport("user32.dll")]
+        static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
+
+        // constants for the mouse_input() API function
+        private const int MOUSEEVENTF_MOVE = 0x0001;
+        private const int MOUSEEVENTF_LEFTDOWN = 0x0002;
+        private const int MOUSEEVENTF_LEFTUP = 0x0004;
+        private const int MOUSEEVENTF_RIGHTDOWN = 0x0008;
+        private const int MOUSEEVENTF_RIGHTUP = 0x0010;
+        private const int MOUSEEVENTF_MIDDLEDOWN = 0x0020;
+        private const int MOUSEEVENTF_MIDDLEUP = 0x0040;
+        private const int MOUSEEVENTF_ABSOLUTE = 0x8000;
+        string storedItem;
+
+        // Locations
+        public class CraftingLocation
+        {
+            public static int[] CraftMat = { 0, 0 };
+            public static int[] Fusing = { 0, 0 };
+            public static int[] Chromatic = { 0, 0 };
+            public static int[] Jeweler = { 0, 0 };
+            public static int[] Alteration = { 0, 0 };
+            public static int[] Augmentation = { 0, 0 };
+            public static int[] Regal = { 0, 0 };
+            public static int[] Transmutation = { 0, 0 };
+            public static int[] Scour = { 0, 0 };
+        }
+
+        public static void UpdateLocations()
+        {
+            // Locations
+            CraftingLocation.CraftMat[0] = Properties.Settings.Default.CraftItemX;
+            CraftingLocation.CraftMat[1] = Properties.Settings.Default.CraftItemY;
+            CraftingLocation.Fusing[0] = Properties.Settings.Default.FusingX;
+            CraftingLocation.Fusing[1] = Properties.Settings.Default.FusingY;
+            CraftingLocation.Chromatic[0] = Properties.Settings.Default.ChromaticX;
+            CraftingLocation.Chromatic[1] = Properties.Settings.Default.ChromaticY;
+            CraftingLocation.Jeweler[0] = Properties.Settings.Default.JewellerX;
+            CraftingLocation.Jeweler[1] = Properties.Settings.Default.JewellerY;
+            CraftingLocation.Alteration[0] = Properties.Settings.Default.AlterationX;
+            CraftingLocation.Alteration[1] = Properties.Settings.Default.AlterationY;
+            CraftingLocation.Augmentation[0] = Properties.Settings.Default.AugmentationX;
+            CraftingLocation.Augmentation[1] = Properties.Settings.Default.AugmentationY;
+            CraftingLocation.Regal[0] = Properties.Settings.Default.RegalX;
+            CraftingLocation.Regal[1] = Properties.Settings.Default.RegalY;
+            CraftingLocation.Transmutation[0] = Properties.Settings.Default.TransmutationX;
+            CraftingLocation.Transmutation[1] = Properties.Settings.Default.TransmutaitonY;
+            CraftingLocation.Scour[0] = Properties.Settings.Default.ScourX;
+            CraftingLocation.Scour[1] = Properties.Settings.Default.ScourY;
+        }
+
+        public static class VirtualKeyboard
+        {
+            [DllImport("user32.dll")]
+            static extern uint keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
+            public static void KeyDown(Keys key)
+            {
+                keybd_event((byte)key, 0, 0, 0);
+            }
+
+            public static void KeyUp(Keys key)
+            {
+                keybd_event((byte)key, 0, 2, 0);
+            }
+        }
+
+        public static void LeftClick()
+        {
+            mouse_event(MOUSEEVENTF_LEFTDOWN, Control.MousePosition.X, Control.MousePosition.Y, 0, 0);
+            System.Threading.Thread.Sleep(100);
+            mouse_event(MOUSEEVENTF_LEFTUP, Control.MousePosition.X, Control.MousePosition.Y, 0, 0);
+            System.Threading.Thread.Sleep(100);
+        }
+
+        public static void RightClick()
+        {
+            mouse_event(MOUSEEVENTF_RIGHTDOWN, Control.MousePosition.X, Control.MousePosition.Y, 0, 0);
+            System.Threading.Thread.Sleep(100);
+            mouse_event(MOUSEEVENTF_RIGHTUP, Control.MousePosition.X, Control.MousePosition.Y, 0, 0);
+            System.Threading.Thread.Sleep(100);
         }
 
         public void ItemInfoTextBox_TextChanged(object sender, EventArgs e)
@@ -80,7 +166,28 @@ namespace PoECrafter
 
         private void buttonTestItem_Click(object sender, EventArgs e)
         {
+
+            // All of this is just testing functions
             RunSearch();
+
+            if (FocusPoE())
+            {
+                FocusPoE();
+
+                Item.Augmentation(trackBar1.Value);
+
+                Item.Transmutation(trackBar1.Value);
+
+                Item.Regal(trackBar1.Value);
+
+                Item.Scour(trackBar1.Value);
+
+                Item.Alteration(trackBar1.Value);
+            }
+            else
+            {
+                Print("PATH OF EXILE IS NOT RUNNING");
+            }
         }
 
         #region AffixList
@@ -857,6 +964,7 @@ namespace PoECrafter
 
         }
 
+        #region Prefix/Suffix Text Change
         private void itemMod1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (itemMod1.Text == "None")
@@ -916,6 +1024,71 @@ namespace PoECrafter
             else
                 AffixType6.Text = "Suffix";
         }
+        #endregion
+
+        // Focus Path of Exile Window
+        public static bool FocusPoE()
+        {
+            foreach (Process p in Process.GetProcesses("."))
+            {
+                try
+                {
+                    if (p.MainWindowTitle.Length > 0)
+                    {
+
+                        if (p.MainWindowTitle.Contains("Path of Exile"))
+                        {
+                            SetForegroundWindow(p.MainWindowHandle);
+                            return true;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+
+            return false;
+        }
+
+        private void placeholderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form f = new Form3();
+            f.StartPosition = FormStartPosition.Manual;
+            f.Left = this.Location.X;
+            f.Top = this.Location.Y;
+            f.Show(this);
+        }
+
+        private void alwaysOnTopToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            alwaysOnTopToolStripMenuItem.Checked = !alwaysOnTopToolStripMenuItem.Checked;
+            this.TopMost = !this.TopMost;
+            Properties.Settings.Default.AlwaysOnTop = alwaysOnTopToolStripMenuItem.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            this.Location = Properties.Settings.Default.Location;
+            this.TopMost = Properties.Settings.Default.AlwaysOnTop;
+            DelayNumber.Text = Properties.Settings.Default.AddedDelay.ToString();
+            trackBar1.Value = Properties.Settings.Default.AddedDelay;
+            alwaysOnTopToolStripMenuItem.Checked = Properties.Settings.Default.AlwaysOnTop;
+            UpdateLocations();
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            DelayNumber.Text = trackBar1.Value.ToString();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.Location = this.Location;
+            Properties.Settings.Default.AddedDelay = trackBar1.Value;
+            Properties.Settings.Default.Save();
+        }
     }
 
     public class Item
@@ -943,6 +1116,61 @@ namespace PoECrafter
             }
 
             return false;
+        }
+
+        public static void Augmentation(int ExtraDelay)
+        {
+            Form1.SetCursorPos(Form1.CraftingLocation.Augmentation[0], Form1.CraftingLocation.Augmentation[1]);
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.RightClick();
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.SetCursorPos(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.LeftClick();
+        }
+
+        public static void Transmutation(int ExtraDelay)
+        {
+            Form1.SetCursorPos(Form1.CraftingLocation.Transmutation[0], Form1.CraftingLocation.Transmutation[1]);
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.RightClick();
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.SetCursorPos(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.LeftClick();
+        }
+
+        public static void Alteration(int ExtraDelay)
+        {
+            Form1.SetCursorPos(Form1.CraftingLocation.Alteration[0], Form1.CraftingLocation.Alteration[1]);
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.RightClick();
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.SetCursorPos(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.LeftClick();
+        }
+
+        public static void Regal(int ExtraDelay)
+        {
+            Form1.SetCursorPos(Form1.CraftingLocation.Regal[0], Form1.CraftingLocation.Regal[1]);
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.RightClick();
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.SetCursorPos(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.LeftClick();
+        }
+
+        public static void Scour(int ExtraDelay)
+        {
+            Form1.SetCursorPos(Form1.CraftingLocation.Scour[0], Form1.CraftingLocation.Scour[1]);
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.RightClick();
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.SetCursorPos(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.LeftClick();
         }
     }
 

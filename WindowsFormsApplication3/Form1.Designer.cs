@@ -55,6 +55,11 @@
             this.label7 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.placeholderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.alwaysOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.DelayNumber = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.itemMod1Value)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemMod2Value)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemMod3Value)).BeginInit();
@@ -62,27 +67,25 @@
             ((System.ComponentModel.ISupportInitialize)(this.itemMod5Value)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemMod6Value)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // ItemInfoTextBoxParsed
             // 
-            this.ItemInfoTextBoxParsed.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ItemInfoTextBoxParsed.Location = new System.Drawing.Point(3, 148);
+            this.ItemInfoTextBoxParsed.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.ItemInfoTextBoxParsed.Location = new System.Drawing.Point(3, 151);
             this.ItemInfoTextBoxParsed.Multiline = true;
             this.ItemInfoTextBoxParsed.Name = "ItemInfoTextBoxParsed";
             this.ItemInfoTextBoxParsed.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.ItemInfoTextBoxParsed.Size = new System.Drawing.Size(416, 361);
+            this.ItemInfoTextBoxParsed.Size = new System.Drawing.Size(416, 412);
             this.ItemInfoTextBoxParsed.TabIndex = 1;
             // 
             // ItemInfoTextBox
             // 
-            this.ItemInfoTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ItemInfoTextBox.Location = new System.Drawing.Point(425, 148);
+            this.ItemInfoTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.ItemInfoTextBox.Location = new System.Drawing.Point(425, 151);
             this.ItemInfoTextBox.Name = "ItemInfoTextBox";
-            this.ItemInfoTextBox.Size = new System.Drawing.Size(440, 332);
+            this.ItemInfoTextBox.Size = new System.Drawing.Size(440, 373);
             this.ItemInfoTextBox.TabIndex = 2;
             this.ItemInfoTextBox.Text = resources.GetString("ItemInfoTextBox.Text");
             this.ItemInfoTextBox.TextChanged += new System.EventHandler(this.ItemInfoTextBox_TextChanged);
@@ -139,14 +142,14 @@
             this.buttonTestItem.Name = "buttonTestItem";
             this.buttonTestItem.Size = new System.Drawing.Size(417, 23);
             this.buttonTestItem.TabIndex = 7;
-            this.buttonTestItem.Text = "Test";
+            this.buttonTestItem.Text = "Start Crafting";
             this.buttonTestItem.UseVisualStyleBackColor = true;
             this.buttonTestItem.Click += new System.EventHandler(this.buttonTestItem_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(425, 483);
+            this.label1.Location = new System.Drawing.Point(425, 527);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(194, 26);
             this.label1.TabIndex = 8;
@@ -370,7 +373,8 @@
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.placeholderToolStripMenuItem});
+            this.placeholderToolStripMenuItem,
+            this.settingsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(866, 24);
@@ -380,14 +384,60 @@
             // placeholderToolStripMenuItem
             // 
             this.placeholderToolStripMenuItem.Name = "placeholderToolStripMenuItem";
-            this.placeholderToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
-            this.placeholderToolStripMenuItem.Text = "Placeholder";
+            this.placeholderToolStripMenuItem.Size = new System.Drawing.Size(116, 20);
+            this.placeholderToolStripMenuItem.Text = "Material Locations";
+            this.placeholderToolStripMenuItem.Click += new System.EventHandler(this.placeholderToolStripMenuItem_Click);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.alwaysOnTopToolStripMenuItem});
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            // 
+            // alwaysOnTopToolStripMenuItem
+            // 
+            this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
+            this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.alwaysOnTopToolStripMenuItem.Text = "Always On Top";
+            this.alwaysOnTopToolStripMenuItem.Click += new System.EventHandler(this.alwaysOnTopToolStripMenuItem_Click);
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(3, 569);
+            this.trackBar1.Maximum = 1000;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(862, 45);
+            this.trackBar1.TabIndex = 26;
+            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
+            // DelayNumber
+            // 
+            this.DelayNumber.AutoSize = true;
+            this.DelayNumber.Location = new System.Drawing.Point(152, 601);
+            this.DelayNumber.Name = "DelayNumber";
+            this.DelayNumber.Size = new System.Drawing.Size(0, 13);
+            this.DelayNumber.TabIndex = 27;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 601);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(138, 13);
+            this.label2.TabIndex = 28;
+            this.label2.Text = "Extra Delay in Milliseconds: ";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(866, 521);
+            this.ClientSize = new System.Drawing.Size(866, 634);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.DelayNumber);
+            this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.AffixType6);
             this.Controls.Add(this.AffixType5);
@@ -418,7 +468,9 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Path of Exile Auto Crafting System";
+            this.Text = "PoE Auto Crafting System";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.itemMod1Value)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemMod2Value)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemMod3Value)).EndInit();
@@ -427,6 +479,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.itemMod6Value)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -459,6 +512,11 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem placeholderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem alwaysOnTopToolStripMenuItem;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Label DelayNumber;
+        private System.Windows.Forms.Label label2;
     }
 }
 

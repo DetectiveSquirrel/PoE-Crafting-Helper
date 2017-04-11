@@ -22,5 +22,257 @@ namespace PoECrafter.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point Location {
+            get {
+                return ((global::System.Drawing.Point)(this["Location"]));
+            }
+            set {
+                this["Location"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AlwaysOnTop {
+            get {
+                return ((bool)(this["AlwaysOnTop"]));
+            }
+            set {
+                this["AlwaysOnTop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("332")]
+        public int CraftItemX {
+            get {
+                return ((int)(this["CraftItemX"]));
+            }
+            set {
+                this["CraftItemX"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("584")]
+        public int CraftItemY {
+            get {
+                return ((int)(this["CraftItemY"]));
+            }
+            set {
+                this["CraftItemY"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("141")]
+        public int FusingX {
+            get {
+                return ((int)(this["FusingX"]));
+            }
+            set {
+                this["FusingX"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("557")]
+        public int FusingY {
+            get {
+                return ((int)(this["FusingY"]));
+            }
+            set {
+                this["FusingY"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("210")]
+        public int ChromaticX {
+            get {
+                return ((int)(this["ChromaticX"]));
+            }
+            set {
+                this["ChromaticX"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("558")]
+        public int ChromaticY {
+            get {
+                return ((int)(this["ChromaticY"]));
+            }
+            set {
+                this["ChromaticY"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("73")]
+        public int JewellerX {
+            get {
+                return ((int)(this["JewellerX"]));
+            }
+            set {
+                this["JewellerX"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("556")]
+        public int JewellerY {
+            get {
+                return ((int)(this["JewellerY"]));
+            }
+            set {
+                this["JewellerY"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int AddedDelay {
+            get {
+                return ((int)(this["AddedDelay"]));
+            }
+            set {
+                this["AddedDelay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("142")]
+        public int AlterationX {
+            get {
+                return ((int)(this["AlterationX"]));
+            }
+            set {
+                this["AlterationX"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("386")]
+        public int AlterationY {
+            get {
+                return ((int)(this["AlterationY"]));
+            }
+            set {
+                this["AlterationY"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("211")]
+        public int AugmentationX {
+            get {
+                return ((int)(this["AugmentationX"]));
+            }
+            set {
+                this["AugmentationX"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("383")]
+        public int AugmentationY {
+            get {
+                return ((int)(this["AugmentationY"]));
+            }
+            set {
+                this["AugmentationY"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("212")]
+        public int RegalX {
+            get {
+                return ((int)(this["RegalX"]));
+            }
+            set {
+                this["RegalX"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("453")]
+        public int RegalY {
+            get {
+                return ((int)(this["RegalY"]));
+            }
+            set {
+                this["RegalY"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("74")]
+        public int TransmutationX {
+            get {
+                return ((int)(this["TransmutationX"]));
+            }
+            set {
+                this["TransmutationX"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("384")]
+        public int TransmutaitonY {
+            get {
+                return ((int)(this["TransmutaitonY"]));
+            }
+            set {
+                this["TransmutaitonY"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("450")]
+        public int ScourX {
+            get {
+                return ((int)(this["ScourX"]));
+            }
+            set {
+                this["ScourX"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("557")]
+        public int ScourY {
+            get {
+                return ((int)(this["ScourY"]));
+            }
+            set {
+                this["ScourY"] = value;
+            }
+        }
     }
 }
