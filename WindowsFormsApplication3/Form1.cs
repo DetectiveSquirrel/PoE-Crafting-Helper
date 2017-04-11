@@ -174,15 +174,14 @@ namespace PoECrafter
             {
                 FocusPoE();
 
+                /*
                 Item.Augmentation(trackBar1.Value);
-
                 Item.Transmutation(trackBar1.Value);
-
                 Item.Regal(trackBar1.Value);
-
                 Item.Scour(trackBar1.Value);
-
                 Item.Alteration(trackBar1.Value);
+                Item.Alteration(trackBar1.Value);
+                */
             }
             else
             {
@@ -1165,6 +1164,39 @@ namespace PoECrafter
         public static void Scour(int ExtraDelay)
         {
             Form1.SetCursorPos(Form1.CraftingLocation.Scour[0], Form1.CraftingLocation.Scour[1]);
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.RightClick();
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.SetCursorPos(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.LeftClick();
+        }
+
+        public static void Fusing(int ExtraDelay)
+        {
+            Form1.SetCursorPos(Form1.CraftingLocation.Fusing[0], Form1.CraftingLocation.Fusing[1]);
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.RightClick();
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.SetCursorPos(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.LeftClick();
+        }
+
+        public static void Chromatic(int ExtraDelay)
+        {
+            Form1.SetCursorPos(Form1.CraftingLocation.Chromatic[0], Form1.CraftingLocation.Chromatic[1]);
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.RightClick();
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.SetCursorPos(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
+            System.Threading.Thread.Sleep(ExtraDelay + 200);
+            Form1.LeftClick();
+        }
+
+        public static void Jeweller(int ExtraDelay)
+        {
+            Form1.SetCursorPos(Form1.CraftingLocation.Jeweler[0], Form1.CraftingLocation.Jeweler[1]);
             System.Threading.Thread.Sleep(ExtraDelay + 200);
             Form1.RightClick();
             System.Threading.Thread.Sleep(ExtraDelay + 200);
