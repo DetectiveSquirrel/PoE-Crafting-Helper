@@ -94,6 +94,7 @@
             this.itemMod1.Name = "itemMod1";
             this.itemMod1.Size = new System.Drawing.Size(286, 21);
             this.itemMod1.TabIndex = 3;
+            this.itemMod1.SelectedIndexChanged += new System.EventHandler(this.itemMod1_SelectedIndexChanged);
             // 
             // itemMod2
             // 
@@ -102,6 +103,7 @@
             this.itemMod2.Name = "itemMod2";
             this.itemMod2.Size = new System.Drawing.Size(286, 21);
             this.itemMod2.TabIndex = 4;
+            this.itemMod2.SelectedIndexChanged += new System.EventHandler(this.itemMod2_SelectedIndexChanged);
             // 
             // itemMod1Value
             // 
@@ -236,6 +238,7 @@
             this.itemMod3.Name = "itemMod3";
             this.itemMod3.Size = new System.Drawing.Size(286, 21);
             this.itemMod3.TabIndex = 10;
+            this.itemMod3.SelectedIndexChanged += new System.EventHandler(this.itemMod3_SelectedIndexChanged);
             // 
             // itemMod4Value
             // 
@@ -258,6 +261,7 @@
             this.itemMod4.Name = "itemMod4";
             this.itemMod4.Size = new System.Drawing.Size(286, 21);
             this.itemMod4.TabIndex = 12;
+            this.itemMod4.SelectedIndexChanged += new System.EventHandler(this.itemMod4_SelectedIndexChanged);
             // 
             // itemMod5Value
             // 
@@ -280,6 +284,7 @@
             this.itemMod5.Name = "itemMod5";
             this.itemMod5.Size = new System.Drawing.Size(286, 21);
             this.itemMod5.TabIndex = 14;
+            this.itemMod5.SelectedIndexChanged += new System.EventHandler(this.itemMod5_SelectedIndexChanged);
             // 
             // itemMod6Value
             // 
@@ -302,60 +307,55 @@
             this.itemMod6.Name = "itemMod6";
             this.itemMod6.Size = new System.Drawing.Size(286, 21);
             this.itemMod6.TabIndex = 16;
+            this.itemMod6.SelectedIndexChanged += new System.EventHandler(this.itemMod6_SelectedIndexChanged);
             // 
             // AffixType1
             // 
             this.AffixType1.AutoSize = true;
             this.AffixType1.Location = new System.Drawing.Point(0, 70);
             this.AffixType1.Name = "AffixType1";
-            this.AffixType1.Size = new System.Drawing.Size(63, 13);
+            this.AffixType1.Size = new System.Drawing.Size(0, 13);
             this.AffixType1.TabIndex = 18;
-            this.AffixType1.Text = "Placeholder";
             // 
             // AffixType2
             // 
             this.AffixType2.AutoSize = true;
             this.AffixType2.Location = new System.Drawing.Point(0, 96);
             this.AffixType2.Name = "AffixType2";
-            this.AffixType2.Size = new System.Drawing.Size(63, 13);
+            this.AffixType2.Size = new System.Drawing.Size(0, 13);
             this.AffixType2.TabIndex = 19;
-            this.AffixType2.Text = "Placeholder";
             // 
             // AffixType3
             // 
             this.AffixType3.AutoSize = true;
             this.AffixType3.Location = new System.Drawing.Point(0, 121);
             this.AffixType3.Name = "AffixType3";
-            this.AffixType3.Size = new System.Drawing.Size(63, 13);
+            this.AffixType3.Size = new System.Drawing.Size(0, 13);
             this.AffixType3.TabIndex = 20;
-            this.AffixType3.Text = "Placeholder";
             // 
             // AffixType4
             // 
             this.AffixType4.AutoSize = true;
             this.AffixType4.Location = new System.Drawing.Point(439, 70);
             this.AffixType4.Name = "AffixType4";
-            this.AffixType4.Size = new System.Drawing.Size(63, 13);
+            this.AffixType4.Size = new System.Drawing.Size(0, 13);
             this.AffixType4.TabIndex = 21;
-            this.AffixType4.Text = "Placeholder";
             // 
             // AffixType5
             // 
             this.AffixType5.AutoSize = true;
             this.AffixType5.Location = new System.Drawing.Point(439, 97);
             this.AffixType5.Name = "AffixType5";
-            this.AffixType5.Size = new System.Drawing.Size(63, 13);
+            this.AffixType5.Size = new System.Drawing.Size(0, 13);
             this.AffixType5.TabIndex = 22;
-            this.AffixType5.Text = "Placeholder";
             // 
             // AffixType6
             // 
             this.AffixType6.AutoSize = true;
             this.AffixType6.Location = new System.Drawing.Point(439, 124);
             this.AffixType6.Name = "AffixType6";
-            this.AffixType6.Size = new System.Drawing.Size(63, 13);
+            this.AffixType6.Size = new System.Drawing.Size(0, 13);
             this.AffixType6.TabIndex = 23;
-            this.AffixType6.Text = "Placeholder";
             // 
             // label7
             // 

@@ -21,6 +21,14 @@ namespace PoECrafter
 
             // Select and load first Item Type and populate the Mod Selectors
             itemTypeBox.SelectedIndex = 0;
+            // Just make sure everything is cleared
+            itemMod1.Items.Clear();
+            itemMod2.Items.Clear();
+            itemMod3.Items.Clear();
+            itemMod4.Items.Clear();
+            itemMod5.Items.Clear();
+            itemMod6.Items.Clear();
+            //Load some shit
             LoadComboItems(itemTypeBox.Text);
         }
 
@@ -482,14 +490,332 @@ namespace PoECrafter
             #region CraftingSelection
             switch (selected)
             {
+                case "Cobalt Jewels":
+                    foreach (var Affix in x.CobaltJewel)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Crimson Jewels":
+                    foreach (var Affix in x.CrimsonJewels)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Viridian Jewels":
+                    foreach (var Affix in x.ViridianJewels)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
                 case "Energy Shield Chest":
                     foreach (var Affix in x.EnergyShieldChest)
                     {
                         PopulateComboBox(Affix.AffixName, Affix.Prefix);
                     }
                     break;
-                case "Cobalt Jewels":
-                    foreach (var Affix in x.CobaltJewel)
+                case "Armour Chest":
+                    foreach (var Affix in x.ArmourChest)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Evasion Chest":
+                    foreach (var Affix in x.EvasionChest)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Armour And Energy Shield Chest":
+                    foreach (var Affix in x.ArmourAndEnergyShieldChest)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Armour And Evasion Chest":
+                    foreach (var Affix in x.ArmourAndEvasionChest)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Evasion And Energy Shield Chest":
+                    foreach (var Affix in x.EvasionAndEnergyShieldChest)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Armour, Evasion And Energy Shield Chest":
+                    foreach (var Affix in x.ArmourEvasionAndEnergyShieldChest)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Armour Helm":
+                    foreach (var Affix in x.ArmourHelm)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Evasion Helm":
+                    foreach (var Affix in x.EvasionHelm)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Energy Shield Helm":
+                    foreach (var Affix in x.EnergyShieldHelm)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Armour And Energy Shield Helm":
+                    foreach (var Affix in x.ArmourAndEnergyShieldHelm)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Armour And Evasion Helm":
+                    foreach (var Affix in x.ArmourAndEvasionHelm)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Evasion And Energy Shield Helm":
+                    foreach (var Affix in x.EvasionAndEnergyShieldHelm)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Armour Gloves":
+                    foreach (var Affix in x.ArmourGloves)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Evasion Gloves":
+                    foreach (var Affix in x.EvasionGloves)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Energy Shield Gloves":
+                    foreach (var Affix in x.EnergyShieldGloves)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Armour And Energy Shield Gloves":
+                    foreach (var Affix in x.ArmourAndEnergyShieldGloves)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Armour And Evasion Gloves":
+                    foreach (var Affix in x.ArmourAndEvasionGloves)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Evasion And Energy Shield Gloves":
+                    foreach (var Affix in x.EvasionAndEnergyShieldGloves)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Armour Boots":
+                    foreach (var Affix in x.ArmourBoots)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Evasion Boots":
+                    foreach (var Affix in x.EvasionBoots)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Energy Shield Boots":
+                    foreach (var Affix in x.EnergyShieldBoots)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Armour And Energy Shield Boots":
+                    foreach (var Affix in x.ArmourAndEnergyShieldBoots)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Armour And Evasion Boots":
+                    foreach (var Affix in x.ArmourAndEvasionBoots)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Evasion And Energy Shield Boots":
+                    foreach (var Affix in x.EvasionAndEnergyShieldBoots)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Armour Shield":
+                    foreach (var Affix in x.ArmourShield)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Evasion Shield":
+                    foreach (var Affix in x.EvasionShield)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Energy Shield Shield":
+                    foreach (var Affix in x.EnergyShieldShield)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Armour And Energy Shield Shield":
+                    foreach (var Affix in x.ArmourAndEnergyShieldShield)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Armour And Evasion Shield":
+                    foreach (var Affix in x.ArmourAndEvasionShield)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Evasion And Energy Shield Shield":
+                    foreach (var Affix in x.EvasionAndEnergyShieldShield)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Daggers":
+                    foreach (var Affix in x.Daggers)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Claws":
+                    foreach (var Affix in x.Claws)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Bows":
+                    foreach (var Affix in x.Bows)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Quivers":
+                    foreach (var Affix in x.Quivers)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Wands":
+                    foreach (var Affix in x.Wands)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Staves":
+                    foreach (var Affix in x.Staves)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Scepters":
+                    foreach (var Affix in x.Scepters)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "One Hand Swords":
+                    foreach (var Affix in x.OneHandSwords)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Two Hand Swords":
+                    foreach (var Affix in x.TwohandSwords)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "One Hand Axes":
+                    foreach (var Affix in x.OneHandAxes)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Two Hand Axes":
+                    foreach (var Affix in x.TwoHandAxes)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "One Hand Maces":
+                    foreach (var Affix in x.OneHandMaces)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Two Hand Maces":
+                    foreach (var Affix in x.TwohandMaces)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Rings":
+                    foreach (var Affix in x.Rings)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Amulets":
+                    foreach (var Affix in x.Amulets)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Belts":
+                    foreach (var Affix in x.Belts)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Life Flask":
+                    foreach (var Affix in x.LifeFlask)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Mana Flask":
+                    foreach (var Affix in x.ManaFlask)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Hybrid Flask":
+                    foreach (var Affix in x.HybridFlask)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Utility Flask":
+                    foreach (var Affix in x.UtilityFlask)
+                    {
+                        PopulateComboBox(Affix.AffixName, Affix.Prefix);
+                    }
+                    break;
+                case "Diamond Flask":
+                    foreach (var Affix in x.DiamondFlask)
                     {
                         PopulateComboBox(Affix.AffixName, Affix.Prefix);
                     }
@@ -529,6 +855,66 @@ namespace PoECrafter
             itemMod6.Items.Clear();
             LoadComboItems(itemTypeBox.Text);
 
+        }
+
+        private void itemMod1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (itemMod1.Text == "None")
+                AffixType1.Text = "";
+            else if (((ComboBoxItem)itemMod1.SelectedItem).AffixMod)
+                AffixType1.Text = "Prefix";
+            else
+                AffixType1.Text = "Suffix";
+        }
+
+        private void itemMod2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (itemMod2.Text == "None")
+                AffixType2.Text = "";
+            else if (((ComboBoxItem)itemMod2.SelectedItem).AffixMod)
+                AffixType2.Text = "Prefix";
+            else
+                AffixType2.Text = "Suffix";
+        }
+
+        private void itemMod3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (itemMod3.Text == "None")
+                AffixType3.Text = "";
+            else if (((ComboBoxItem)itemMod3.SelectedItem).AffixMod)
+                AffixType3.Text = "Prefix";
+            else
+                AffixType3.Text = "Suffix";
+        }
+
+        private void itemMod4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (itemMod4.Text == "None")
+                AffixType4.Text = "";
+            else if (((ComboBoxItem)itemMod4.SelectedItem).AffixMod)
+                AffixType4.Text = "Prefix";
+            else
+                AffixType4.Text = "Suffix";
+        }
+
+        private void itemMod5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (itemMod5.Text == "None")
+                AffixType5.Text = "";
+            else if (((ComboBoxItem)itemMod5.SelectedItem).AffixMod)
+                AffixType5.Text = "Prefix";
+            else
+                AffixType5.Text = "Suffix";
+        }
+
+        private void itemMod6_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (itemMod6.Text == "None")
+                AffixType6.Text = "";
+            else if (((ComboBoxItem)itemMod6.SelectedItem).AffixMod)
+                AffixType6.Text = "Prefix";
+            else
+                AffixType6.Text = "Suffix";
         }
     }
 
