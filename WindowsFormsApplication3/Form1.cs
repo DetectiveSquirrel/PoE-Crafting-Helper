@@ -212,10 +212,12 @@ namespace PoECrafter
             {
                 try
                 {
+                    // Add your logic inside here
                     await Item.CopyData(trackBar1.Value);
                     ItemInfoTextBox.Text = Clipboard.GetText();
                     await RunSearch();
 
+                    // break if our mod count is same or higher than our wanted mod count before even touching it with craft mats
                     if (wantedModCount >= SelectedModCount.Value)
                         return;
 
@@ -229,6 +231,7 @@ namespace PoECrafter
                         ItemInfoTextBox.Text = Clipboard.GetText();
                         await RunSearch();
 
+                        // break if our mod count is same or higher than our wanted mod count
                         if (wantedModCount >= SelectedModCount.Value)
                             break; 
                     }
