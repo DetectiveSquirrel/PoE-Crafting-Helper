@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using WindowsFormsApplication3;
+using System.Threading.Tasks;
 
 namespace PoECrafter
 {
@@ -38,6 +39,8 @@ namespace PoECrafter
         public const int SW_RESTORE = 9;
         [DllImport("user32.dll")]
         static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
 
         // constants for the mouse_input() API function
         private const int MOUSEEVENTF_MOVE = 0x0001;
@@ -48,7 +51,13 @@ namespace PoECrafter
         private const int MOUSEEVENTF_MIDDLEDOWN = 0x0020;
         private const int MOUSEEVENTF_MIDDLEUP = 0x0040;
         private const int MOUSEEVENTF_ABSOLUTE = 0x8000;
-        string storedItem;
+
+
+        const int KEY_DOWN_EVENT = 0x0001; //Key down flag
+        const int KEY_UP_EVENT = 0x0002; //Key up flag
+
+        string storedItem; // Stored item data i guess from copy
+        int wantedModCount = 0;
 
         // Locations
         public class CraftingLocation
@@ -102,52 +111,84 @@ namespace PoECrafter
             }
         }
 
-        public static void LeftClick()
+        public static async Task LeftClick()
         {
-            mouse_event(MOUSEEVENTF_LEFTDOWN, Control.MousePosition.X, Control.MousePosition.Y, 0, 0);
-            System.Threading.Thread.Sleep(100);
-            mouse_event(MOUSEEVENTF_LEFTUP, Control.MousePosition.X, Control.MousePosition.Y, 0, 0);
-            System.Threading.Thread.Sleep(100);
-        }
-
-        public static void RightClick()
-        {
-            mouse_event(MOUSEEVENTF_RIGHTDOWN, Control.MousePosition.X, Control.MousePosition.Y, 0, 0);
-            System.Threading.Thread.Sleep(100);
-            mouse_event(MOUSEEVENTF_RIGHTUP, Control.MousePosition.X, Control.MousePosition.Y, 0, 0);
-            System.Threading.Thread.Sleep(100);
-        }
-
-        public void ItemInfoTextBox_TextChanged(object sender, EventArgs e)
-        {
-            RunSearch();
-        }
-
-        public void FindMods(string[] itemLine, string[] affixSearch, decimal[] affixValue, bool[] AmPrefix)
-        {
-            for (int i = 0; i < itemLine.Length; i++)
+            await Task.Run(() =>
             {
-                for (int j = 0; j < affixValue.Length; j++)
-                {
-
-                    var string1 = Search.removeMinMaxRoll(affixSearch[j].ToLower());
-                    var string2 = Search.toText(itemLine[i].ToLower());
-
-                    if (string1 == string2 && Convert.ToDecimal(Search.toDecimal(itemLine[i])) >= affixValue[j])
-                    {
-                        Print(String.Format("Search {2}: [ Prefix({3}) , {0} >= {1} ]", Search.toDecimal(itemLine[i]), affixValue[j], j + 1, AmPrefix[j]));
-                    }
-
-                    if (string1 == string2 && Convert.ToDecimal(Search.toDecimal(itemLine[i])) <= affixValue[j])
-                    {
-                        Print(String.Format("Search {2}: [ Prefix({3}) , {0} <= {1} ]", Search.toDecimal(itemLine[i]), affixValue[j], j + 1, AmPrefix[j]));
-                    }
-
-                }
-            }
+                mouse_event(MOUSEEVENTF_LEFTDOWN, Control.MousePosition.X, Control.MousePosition.Y, 0, 0);
+                Task.Delay(100);
+                mouse_event(MOUSEEVENTF_LEFTUP, Control.MousePosition.X, Control.MousePosition.Y, 0, 0);
+                Task.Delay(100);
+            });
         }
 
-        public void RunSearch()
+        public static async Task RightClick()
+        {
+            await Task.Run(() =>
+            {
+                mouse_event(MOUSEEVENTF_RIGHTDOWN, Control.MousePosition.X, Control.MousePosition.Y, 0, 0);
+                Task.Delay(100);
+                mouse_event(MOUSEEVENTF_RIGHTUP, Control.MousePosition.X, Control.MousePosition.Y, 0, 0);
+                Task.Delay(100);
+            });
+        }
+
+        public static async Task MouseTo(int x, int y)
+        {
+            await Task.Run(() =>
+            {
+                SetCursorPos(x, y);
+                Task.Delay(100);
+            });
+        }
+
+        public static async Task SendControlC()
+        {
+            await Task.Run(() =>
+            {
+                SendKeys.SendWait("^(C)");
+            });
+        }
+
+        public async void ItemInfoTextBox_TextChanged(object sender, EventArgs e)
+        {
+            //await RunSearch();
+        }
+
+        public async Task FindMods(string[] itemLine, string[] affixSearch, decimal[] affixValue, bool[] AmPrefix)
+        {
+            await Task.Run(() =>
+            {
+                if (InvokeRequired)
+                {
+                    // after we've done all the processing, 
+                    this.Invoke(new MethodInvoker(delegate
+                    {
+                        // load the control with the appropriate data
+                        wantedModCount = 0;
+                        for (int i = 0; i < itemLine.Length; i++)
+                        {
+                            for (int j = 0; j < affixValue.Length; j++)
+                            {
+
+                                var string1 = Search.removeMinMaxRoll(affixSearch[j].ToLower());
+                                var string2 = Search.toText(itemLine[i].ToLower());
+
+                                if (string1 == string2 && Convert.ToDecimal(Search.toDecimal(itemLine[i])) >= affixValue[j])
+                                {
+                                    wantedModCount++;
+                                    Print(String.Format("Search {2}: [ Prefix({3}) , {0} >= {1} ]", Search.toDecimal(itemLine[i]), affixValue[j], j + 1, AmPrefix[j]));
+                                }
+
+                            }
+                        }
+                    }));
+                    return;
+                }
+            });
+        }
+
+        public async Task RunSearch()
         {
             ItemInfoTextBoxParsed.Clear();
 
@@ -156,32 +197,47 @@ namespace PoECrafter
             decimal[] WantedModsValue = { itemMod1Value.Value, itemMod2Value.Value, itemMod3Value.Value, itemMod4Value.Value, itemMod5Value.Value, itemMod6Value.Value };
             bool[] Prefix = { ((ComboBoxItem)itemMod1.SelectedItem).AffixMod, ((ComboBoxItem)itemMod2.SelectedItem).AffixMod, ((ComboBoxItem)itemMod3.SelectedItem).AffixMod, ((ComboBoxItem)itemMod4.SelectedItem).AffixMod, ((ComboBoxItem)itemMod5.SelectedItem).AffixMod, ((ComboBoxItem)itemMod6.SelectedItem).AffixMod };
 
-            FindMods(ItemData, WantedModsText, WantedModsValue, Prefix);
+            await FindMods(ItemData, WantedModsText, WantedModsValue, Prefix);
         }
 
         public void Print(object text)
         {
-            ItemInfoTextBoxParsed.Text += text+"\r\n".ToString();
+            ItemInfoTextBoxParsed.Text += text + "\r\n".ToString();
         }
 
-        private void buttonTestItem_Click(object sender, EventArgs e)
+        private async void buttonTestItem_Click(object sender, EventArgs e)
         {
-
-            // All of this is just testing functions
-            RunSearch();
 
             if (FocusPoE())
             {
-                FocusPoE();
+                try
+                {
+                    await Item.CopyData(trackBar1.Value);
+                    ItemInfoTextBox.Text = Clipboard.GetText();
+                    await RunSearch();
 
-                /*
-                Item.Augmentation(trackBar1.Value);
-                Item.Transmutation(trackBar1.Value);
-                Item.Regal(trackBar1.Value);
-                Item.Scour(trackBar1.Value);
-                Item.Alteration(trackBar1.Value);
-                Item.Alteration(trackBar1.Value);
-                */
+                    if (wantedModCount >= SelectedModCount.Value)
+                        return;
+
+                    for (var i = 1; i <= selectedLoopCount.Value; i++)
+                    {
+                        //Example of alt then aug and check against wanted mods
+                        await Item.Alteration(trackBar1.Value);
+                        await Item.Augmentation(trackBar1.Value);
+                        await Task.Delay(100);
+                        await Item.CopyData(trackBar1.Value);
+                        ItemInfoTextBox.Text = Clipboard.GetText();
+                        await RunSearch();
+
+                        if (wantedModCount >= SelectedModCount.Value)
+                            break; 
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
             }
             else
             {
@@ -929,7 +985,7 @@ namespace PoECrafter
                 default:
                     PopulateComboBox("BLANK", false);
                     break;
-            } 
+            }
             #endregion
 
             // Force affix selection to be the first option to stop the error of trying to view its prefix if it does not have one
@@ -1117,92 +1173,128 @@ namespace PoECrafter
             return false;
         }
 
-        public static void Augmentation(int ExtraDelay)
+        public static async Task Augmentation(int ExtraDelay)
         {
-            Form1.SetCursorPos(Form1.CraftingLocation.Augmentation[0], Form1.CraftingLocation.Augmentation[1]);
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.RightClick();
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.SetCursorPos(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.LeftClick();
+            await Task.Run(async () =>
+            {
+                await Form1.MouseTo(Form1.CraftingLocation.Augmentation[0], Form1.CraftingLocation.Augmentation[1]);
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.RightClick();
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.MouseTo(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.LeftClick();
+            });
         }
 
-        public static void Transmutation(int ExtraDelay)
+        public static async Task Transmutation(int ExtraDelay)
         {
-            Form1.SetCursorPos(Form1.CraftingLocation.Transmutation[0], Form1.CraftingLocation.Transmutation[1]);
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.RightClick();
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.SetCursorPos(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.LeftClick();
+            await Task.Run(async () =>
+            {
+                await Form1.MouseTo(Form1.CraftingLocation.Transmutation[0], Form1.CraftingLocation.Transmutation[1]);
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.RightClick();
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.MouseTo(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.LeftClick();
+            });
         }
 
-        public static void Alteration(int ExtraDelay)
+        public static async Task Alteration(int ExtraDelay)
         {
-            Form1.SetCursorPos(Form1.CraftingLocation.Alteration[0], Form1.CraftingLocation.Alteration[1]);
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.RightClick();
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.SetCursorPos(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.LeftClick();
+            await Task.Run(async () =>
+            {
+                await Form1.MouseTo(Form1.CraftingLocation.Alteration[0], Form1.CraftingLocation.Alteration[1]);
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.RightClick();
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.MouseTo(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.LeftClick();
+            });
         }
 
-        public static void Regal(int ExtraDelay)
+        public static async Task Regal(int ExtraDelay)
         {
-            Form1.SetCursorPos(Form1.CraftingLocation.Regal[0], Form1.CraftingLocation.Regal[1]);
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.RightClick();
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.SetCursorPos(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.LeftClick();
+            await Task.Run(async () =>
+            {
+                await Form1.MouseTo(Form1.CraftingLocation.Regal[0], Form1.CraftingLocation.Regal[1]);
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.RightClick();
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.MouseTo(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.LeftClick();
+            });
         }
 
-        public static void Scour(int ExtraDelay)
+        public static async Task Scour(int ExtraDelay)
         {
-            Form1.SetCursorPos(Form1.CraftingLocation.Scour[0], Form1.CraftingLocation.Scour[1]);
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.RightClick();
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.SetCursorPos(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.LeftClick();
+            await Task.Run(async () =>
+            {
+                await Form1.MouseTo(Form1.CraftingLocation.Scour[0], Form1.CraftingLocation.Scour[1]);
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.RightClick();
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.MouseTo(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.LeftClick();
+            });
         }
 
-        public static void Fusing(int ExtraDelay)
+        public async static Task Fusing(int ExtraDelay)
         {
-            Form1.SetCursorPos(Form1.CraftingLocation.Fusing[0], Form1.CraftingLocation.Fusing[1]);
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.RightClick();
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.SetCursorPos(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.LeftClick();
+            await Task.Run(async () =>
+            {
+                await Form1.MouseTo(Form1.CraftingLocation.Fusing[0], Form1.CraftingLocation.Fusing[1]);
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.RightClick();
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.MouseTo(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.LeftClick();
+            });
         }
 
-        public static void Chromatic(int ExtraDelay)
+        public static async Task Chromatic(int ExtraDelay)
         {
-            Form1.SetCursorPos(Form1.CraftingLocation.Chromatic[0], Form1.CraftingLocation.Chromatic[1]);
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.RightClick();
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.SetCursorPos(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.LeftClick();
+            await Task.Run(async () =>
+            {
+                await Form1.MouseTo(Form1.CraftingLocation.Chromatic[0], Form1.CraftingLocation.Chromatic[1]);
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.RightClick();
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.MouseTo(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.LeftClick();
+            });
         }
 
-        public static void Jeweller(int ExtraDelay)
+        public static async Task Jeweller(int ExtraDelay)
         {
-            Form1.SetCursorPos(Form1.CraftingLocation.Jeweler[0], Form1.CraftingLocation.Jeweler[1]);
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.RightClick();
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.SetCursorPos(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
-            System.Threading.Thread.Sleep(ExtraDelay + 200);
-            Form1.LeftClick();
+            await Task.Run(async () =>
+            {
+                await Form1.MouseTo(Form1.CraftingLocation.Jeweler[0], Form1.CraftingLocation.Jeweler[1]);
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.RightClick();
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.MouseTo(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
+                await Task.Delay(ExtraDelay + 200);
+                await Form1.LeftClick();
+                await Task.Delay(ExtraDelay + 200);
+            });
+        }
+
+        public static async Task CopyData(int ExtraDelay)
+        {
+            await Task.Run(async () =>
+            {
+                await Form1.MouseTo(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
+                await Task.Delay(ExtraDelay + 200);
+                SendKeys.SendWait("^(C)");
+                await Task.Delay(ExtraDelay + 150);
+            });
         }
     }
 
