@@ -1,742 +1,271 @@
 {
   "AffixList": {
     "CrimsonJewels": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "ViridianJewels": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "CobaltJewel": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Physical Damage with Wands",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Spell Damage while wielding a Staff",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Spell Damage while dual Wielding",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Spell Damage while holding a Shield",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Trap Damage",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Mine Damage",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Minion Damage",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Fire Damage",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Cold Damage",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Lightning Damage",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Physical Damage",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Chaos Damage",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Attack Speed with Wands",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Cast Speed while Dual Wielding",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Attack Speed while Dual Wielding",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Attack Speed while holding a Shield",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Cast Speed while holding a Shield",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Cast Speed while wielding a Staff",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Trap Throwing Speed",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Mine Laying Speed",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Cast Speed with Fire Skills",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Cast Speed with Cold Skills",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Cast Speed with Lightning Skills",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased maximum Life",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased maximum Mana",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Mana Regeneration Rate",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased maximum Energy Shield",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Critical Strike Chance with Fire Skills",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Critical Strike Chance with Cold Skills",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Critical Strike Chance with Lightning Skills",
-        "Prefix": true
-      },
-      {
-        "AffixName": "+#% to Critical Strike Multiplier with Fire Skills",
-        "Prefix": true
-      },
-      {
-        "AffixName": "+#% to Critical Strike Multiplier with Cold Skills",
-        "Prefix": true
-      },
-      {
-        "AffixName": "+#% to Critical Strike Multiplier with Lightning Skills",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% additional Block Chance while Dual Wielding",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% additional Block Chance with Shields",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% additional Block Chance with Staves",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% additional Chance to Block Spells while Dual Wielding",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% additional Chance to Block Spells with Shields",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% additional Chance to Block Spells with Staves",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% faster start of Energy Shield Recharge",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Energy Shield Recharge Rate",
-        "Prefix": true
-      },
-      {
-        "AffixName": "Minions have #% increased maximum Life",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Totem Damage",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Totem Life",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Projectile Damage",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% increased Spell Damage",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% increased Damage",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% increased Damage over Time",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% increased Area Damage",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% increased Attack Speed",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% increased Projectile Speed",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% increased Cast Speed",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% increased Attack and Cast Speed",
-        "Prefix": false
-      },
-      {
-        "AffixName": "# to Strength",
-        "Prefix": false
-      },
-      {
-        "AffixName": "# to Dexterity",
-        "Prefix": false
-      },
-      {
-        "AffixName": "# to Intelligence",
-        "Prefix": false
-      },
-      {
-        "AffixName": "# to Strength and Dexterity",
-        "Prefix": false
-      },
-      {
-        "AffixName": "# to Strength and Intelligence",
-        "Prefix": false
-      },
-      {
-        "AffixName": "# to Dexterity and Intelligence",
-        "Prefix": false
-      },
-      {
-        "AffixName": "# to all Attributes",
-        "Prefix": false
-      },
-      {
-        "AffixName": "# Energy Shield gained for each Enemy hit by your Attacks",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% increased Rarity of Items found",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% increased Global Critical Strike Chance",
-        "Prefix": false
-      },
-      {
-        "AffixName": "+#% to Global Critical Strike Multiplier",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% increased Critical Strike Chance for Spells",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% increased Critical Strike Chance with Elemental Skills",
-        "Prefix": false
-      },
-      {
-        "AffixName": "+#% to Critical Strike Multiplier for Spells",
-        "Prefix": false
-      },
-      {
-        "AffixName": "+#% to Critical Strike Multiplier with Elemental Skills",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% to Fire Resistance",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% to Cold Resistance",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% to Lightning Resistance",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% to Fire and Cold Resistances",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% to Fire and Lightning Resistances",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% to Cold and Lightning Resistances",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% to all Elemental Resistances",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% to Chaos Resistance",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% increased Stun Duration on Enemies",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% increased Stun Recovery",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% reduced Mana Cost of Skills",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% chance to Knock Enemies Back on hit",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% increased Freeze Duration on Enemies",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% chance to Freeze",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% increased Shock Duration on Enemies",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% chance to Shock",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% increased Ignite Duration on Enemies",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% chance to Ignite",
-        "Prefix": false
-      },
-      {
-        "AffixName": "Minions have #% Chance to Block",
-        "Prefix": false
-      },
-      {
-        "AffixName": "Minions have #% to all Elemental Resistances",
-        "Prefix": false
-      },
-      {
-        "AffixName": "Totems gain #% to all Elemental Resistances",
-        "Prefix": false
-      }
+      { "AffixName": "None", "Prefix": true },
+      { "AffixName": "#% increased Physical Damage with Wands", "Prefix": true },
+      { "AffixName": "#% increased Spell Damage while wielding a Staff", "Prefix": true },
+      { "AffixName": "#% increased Spell Damage while dual Wielding", "Prefix": true },
+      { "AffixName": "#% increased Spell Damage while holding a Shield", "Prefix": true },
+      { "AffixName": "#% increased Trap Damage", "Prefix": true },
+      { "AffixName": "#% increased Mine Damage", "Prefix": true },
+      { "AffixName": "#% increased Minion Damage", "Prefix": true },
+      { "AffixName": "#% increased Fire Damage", "Prefix": true },
+      { "AffixName": "#% increased Cold Damage", "Prefix": true },
+      { "AffixName": "#% increased Lightning Damage", "Prefix": true },
+      { "AffixName": "#% increased Physical Damage", "Prefix": true },
+      { "AffixName": "#% increased Chaos Damage", "Prefix": true },
+      { "AffixName": "#% increased Attack Speed with Wands", "Prefix": true },
+      { "AffixName": "#% increased Cast Speed while Dual Wielding", "Prefix": true },
+      { "AffixName": "#% increased Attack Speed while Dual Wielding", "Prefix": true },
+      { "AffixName": "#% increased Attack Speed while holding a Shield", "Prefix": true },
+      { "AffixName": "#% increased Cast Speed while holding a Shield", "Prefix": true },
+      { "AffixName": "#% increased Cast Speed while wielding a Staff", "Prefix": true },
+      { "AffixName": "#% increased Trap Throwing Speed", "Prefix": true },
+      { "AffixName": "#% increased Mine Laying Speed", "Prefix": true },
+      { "AffixName": "#% increased Cast Speed with Fire Skills", "Prefix": true },
+      { "AffixName": "#% increased Cast Speed with Cold Skills", "Prefix": true },
+      { "AffixName": "#% increased Cast Speed with Lightning Skills", "Prefix": true },
+      { "AffixName": "#% increased maximum Life", "Prefix": true },
+      { "AffixName": "#% increased maximum Mana", "Prefix": true },
+      { "AffixName": "#% increased Mana Regeneration Rate", "Prefix": true },
+      { "AffixName": "#% increased maximum Energy Shield", "Prefix": true },
+      { "AffixName": "#% increased Critical Strike Chance with Fire Skills", "Prefix": true },
+      { "AffixName": "#% increased Critical Strike Chance with Cold Skills", "Prefix": true },
+      { "AffixName": "#% increased Critical Strike Chance with Lightning Skills", "Prefix": true },
+      { "AffixName": "+#% to Critical Strike Multiplier with Fire Skills", "Prefix": true },
+      { "AffixName": "+#% to Critical Strike Multiplier with Cold Skills", "Prefix": true },
+      { "AffixName": "+#% to Critical Strike Multiplier with Lightning Skills", "Prefix": true },
+      { "AffixName": "#% additional Block Chance while Dual Wielding", "Prefix": true },
+      { "AffixName": "#% additional Block Chance with Shields", "Prefix": true },
+      { "AffixName": "#% additional Block Chance with Staves", "Prefix": true },
+      { "AffixName": "#% additional Chance to Block Spells while Dual Wielding", "Prefix": true },
+      { "AffixName": "#% additional Chance to Block Spells with Shields", "Prefix": true },
+      { "AffixName": "#% additional Chance to Block Spells with Staves", "Prefix": true },
+      { "AffixName": "#% faster start of Energy Shield Recharge", "Prefix": true },
+      { "AffixName": "#% increased Energy Shield Recharge Rate", "Prefix": true },
+      { "AffixName": "Minions have #% increased maximum Life", "Prefix": true },
+      { "AffixName": "#% increased Totem Damage", "Prefix": true },
+      { "AffixName": "#% increased Totem Life", "Prefix": true },
+      { "AffixName": "#% increased Projectile Damage", "Prefix": false },
+      { "AffixName": "#% increased Spell Damage", "Prefix": false },
+      { "AffixName": "#% increased Damage", "Prefix": false },
+      { "AffixName": "#% increased Damage over Time", "Prefix": false },
+      { "AffixName": "#% increased Area Damage", "Prefix": false },
+      { "AffixName": "#% increased Attack Speed", "Prefix": false },
+      { "AffixName": "#% increased Projectile Speed", "Prefix": false },
+      { "AffixName": "#% increased Cast Speed", "Prefix": false },
+      { "AffixName": "#% increased Attack and Cast Speed", "Prefix": false },
+      { "AffixName": "# to Strength", "Prefix": false },
+      { "AffixName": "# to Dexterity", "Prefix": false },
+      { "AffixName": "# to Intelligence", "Prefix": false },
+      { "AffixName": "# to Strength and Dexterity", "Prefix": false },
+      { "AffixName": "# to Strength and Intelligence", "Prefix": false },
+      { "AffixName": "# to Dexterity and Intelligence", "Prefix": false },
+      { "AffixName": "# to all Attributes", "Prefix": false },
+      { "AffixName": "# Energy Shield gained for each Enemy hit by your Attacks", "Prefix": false },
+      { "AffixName": "#% increased Rarity of Items found", "Prefix": false },
+      { "AffixName": "#% increased Global Critical Strike Chance", "Prefix": false },
+      { "AffixName": "+#% to Global Critical Strike Multiplier", "Prefix": false },
+      { "AffixName": "#% increased Critical Strike Chance for Spells", "Prefix": false },
+      { "AffixName": "#% increased Critical Strike Chance with Elemental Skills", "Prefix": false },
+      { "AffixName": "+#% to Critical Strike Multiplier for Spells", "Prefix": false },
+      { "AffixName": "+#% to Critical Strike Multiplier with Elemental Skills", "Prefix": false },
+      { "AffixName": "#% to Fire Resistance", "Prefix": false },
+      { "AffixName": "#% to Cold Resistance", "Prefix": false },
+      { "AffixName": "#% to Lightning Resistance", "Prefix": false },
+      { "AffixName": "#% to Fire and Cold Resistances", "Prefix": false },
+      { "AffixName": "#% to Fire and Lightning Resistances", "Prefix": false },
+      { "AffixName": "#% to Cold and Lightning Resistances", "Prefix": false },
+      { "AffixName": "#% to all Elemental Resistances", "Prefix": false },
+      { "AffixName": "#% to Chaos Resistance", "Prefix": false },
+      { "AffixName": "#% increased Stun Duration on Enemies", "Prefix": false },
+      { "AffixName": "#% increased Stun Recovery", "Prefix": false },
+      { "AffixName": "#% reduced Mana Cost of Skills", "Prefix": false },
+      { "AffixName": "#% chance to Knock Enemies Back on hit", "Prefix": false },
+      { "AffixName": "#% increased Freeze Duration on Enemies", "Prefix": false },
+      { "AffixName": "#% chance to Freeze", "Prefix": false },
+      { "AffixName": "#% increased Shock Duration on Enemies", "Prefix": false },
+      { "AffixName": "#% chance to Shock", "Prefix": false },
+      { "AffixName": "#% increased Ignite Duration on Enemies", "Prefix": false },
+      { "AffixName": "#% chance to Ignite", "Prefix": false },
+      { "AffixName": "Minions have #% Chance to Block", "Prefix": false },
+      { "AffixName": "Minions have #% to all Elemental Resistances", "Prefix": false },
+      { "AffixName": "Totems gain #% to all Elemental Resistances", "Prefix": false }
     ],
     "EnergyShieldChest": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
-      {
-        "AffixName": "+# to maximum Energy Shield",
-        "Prefix": true
-      },
-      {
-        "AffixName": "Reflects # Physical Damage to Melee Attackers",
-        "Prefix": true
-      },
-      {
-        "AffixName": "#% increased Energy Shield",
-        "Prefix": true
-      },
-      {
-        "AffixName": "+# to maximum Life",
-        "Prefix": true
-      },
-      {
-        "AffixName": "+# to maximum Mana",
-        "Prefix": true
-      },
-      {
-        "AffixName": "(BROKEN) #% increased Energy Shield, #% increased Stun and Block Recovery",
-        "Prefix": true
-      },
-      {
-        "AffixName": "+#% to Chaos Resistance",
-        "Prefix": false
-      },
-      {
-        "AffixName": "+#% to Cold Resistance",
-        "Prefix": false
-      },
-      {
-        "AffixName": "+#% to Fire Resistance",
-        "Prefix": false
-      },
-      {
-        "AffixName": "+#% to Lightning Resistance",
-        "Prefix": false
-      },
-      {
-        "AffixName": "# Life Regenerated per second",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% reduced Attribute Requirements",
-        "Prefix": false
-      },
-      {
-        "AffixName": "#% increased Stun and Block Recovery",
-        "Prefix": false
-      }
+      { "AffixName": "None", "Prefix": true },
+      { "AffixName": "+# to maximum Energy Shield", "Prefix": true },
+      { "AffixName": "Reflects # Physical Damage to Melee Attackers", "Prefix": true },
+      { "AffixName": "#% increased Energy Shield", "Prefix": true },
+      { "AffixName": "+# to maximum Life", "Prefix": true },
+      { "AffixName": "+# to maximum Mana", "Prefix": true },
+      { "AffixName": "(BROKEN) #% increased Energy Shield, #% increased Stun and Block Recovery", "Prefix": true },
+      { "AffixName": "+#% to Chaos Resistance", "Prefix": false },
+      { "AffixName": "+#% to Cold Resistance", "Prefix": false },
+      { "AffixName": "+#% to Fire Resistance", "Prefix": false },
+      { "AffixName": "+#% to Lightning Resistance", "Prefix": false },
+      { "AffixName": "# Life Regenerated per second", "Prefix": false },
+      { "AffixName": "#% reduced Attribute Requirements", "Prefix": false },
+      { "AffixName": "#% increased Stun and Block Recovery", "Prefix": false }
     ],
     "ArmourChest": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "EvasionChest": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "ArmourAndEnergyShieldChest": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "ArmourAndEvasionChest": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "EvasionAndEnergyShieldChest": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "ArmourEvasionAndEnergyShieldChest": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "ArmourHelm": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "EvasionHelm": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "EnergyShieldHelm": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "ArmourAndEnergyShieldHelm": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "ArmourAndEvasionHelm": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "EvasionAndEnergyShieldHelm": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "ArmourGloves": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "EvasionGloves": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "EnergyShieldGloves": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "ArmourAndEnergyShieldGloves": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "ArmourAndEvasionGloves": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "EvasionAndEnergyShieldGloves": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "ArmourBoots": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "EvasionBoots": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "EnergyShieldBoots": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "ArmourAndEnergyShieldBoots": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "ArmourAndEvasionBoots": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "EvasionAndEnergyShieldBoots": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "ArmourShield": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "EvasionShield": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "EnergyShieldShield": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "ArmourAndEnergyShieldShield": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "ArmourAndEvasionShield": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "EvasionAndEnergyShieldShield": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "Daggers": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "Claws": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "Bows": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "Quivers": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "Wands": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "Staves": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "Scepters": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "OneHandSwords": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "TwohandSwords": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "OneHandAxes": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "TwoHandAxes": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "OneHandMaces": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "TwohandMaces": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "Rings": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "Amulets": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "Belts": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "LifeFlask": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "ManaFlask": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "HybridFlask": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "UtilityFlask": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ],
     "DiamondFlask": [
-      {
-        "AffixName": "None",
-        "Prefix": true
-      },
+      { "AffixName": "None", "Prefix": true },
     ]
   }
 }
