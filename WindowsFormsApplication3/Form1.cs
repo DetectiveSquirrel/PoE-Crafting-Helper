@@ -28,6 +28,7 @@ namespace PoECrafter
             itemMod6.Items.Clear();
             //Load some shit
             LoadComboItems(itemTypeBox.Text);
+            RegisterHotKey(this.Handle, MYACTION_HOTKEY_ID, 0, (int)Keys.Escape);
         }
 
         [DllImport("user32.dll", EntryPoint = "SetCursorPos")]
@@ -41,6 +42,10 @@ namespace PoECrafter
         static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
         [DllImport("user32.dll", SetLastError = true)]
         static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
+        [DllImport("user32.dll")]
+        public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vlc);
+        [DllImport("user32.dll")]
+        public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
         // constants for the mouse_input() API function
         private const int MOUSEEVENTF_MOVE = 0x0001;
@@ -56,8 +61,11 @@ namespace PoECrafter
         const int KEY_DOWN_EVENT = 0x0001; //Key down flag
         const int KEY_UP_EVENT = 0x0002; //Key up flag
 
+        const int MYACTION_HOTKEY_ID = 1;
+
         string storedItem; // Stored item data i guess from copy
         int wantedModCount = 0;
+
 
         // Locations
         public class CraftingLocation
@@ -174,12 +182,70 @@ namespace PoECrafter
                                 var string1 = Search.removeMinMaxRoll(affixSearch[j].ToLower());
                                 var string2 = Search.toText(itemLine[i].ToLower());
 
-                                if (string1 == string2 && Convert.ToDecimal(Search.toDecimal(itemLine[i])) >= affixValue[j])
+                                // Check if it has variable rolls
+                                if (affixSearch[j].Contains("#"))
                                 {
-                                    wantedModCount++;
-                                    Print(String.Format("Search {2}: [ Prefix({3}) , {0} >= {1} ]", Search.toDecimal(itemLine[i]), affixValue[j], j + 1, AmPrefix[j]));
+                                    if (string1 == string2 && Convert.ToDecimal(Search.toDecimal(itemLine[i])) >= affixValue[j])
+                                    {
+                                        wantedModCount++;
+                                        Print(String.Format("Search {2}: [ Prefix({3}) , {0} >= {1} ]", Search.toDecimal(itemLine[i]), affixValue[j], j + 1, AmPrefix[j]));
+                                    }
                                 }
+                                // Otherwise check the item line and search mod without removing shit
+                                else
+                                {
+                                    if (itemLine[i].ToLower() == affixSearch[j].ToLower())
+                                    {
+                                        wantedModCount++;
+                                        Print(String.Format("Search {0}: {1}]", j + 1, itemLine[i]));
+                                    }
+                                }
+                            }
+                        }
+                    }));
+                    return;
+                }
+            });
+        }
 
+        // Use this if you want to do custom mod searching
+        public async Task CustomFindMods(string[] itemLine, string[] affixSearch, decimal[] affixValue, bool[] AmPrefix)
+        {
+            await Task.Run(() =>
+            {
+                if (InvokeRequired)
+                {
+                    // after we've done all the processing, 
+                    this.Invoke(new MethodInvoker(delegate
+                    {
+                        // load the control with the appropriate data
+                        wantedModCount = 0;
+                        for (int i = 0; i < itemLine.Length; i++)
+                        {
+                            for (int j = 0; j < affixValue.Length; j++)
+                            {
+
+                                var string1 = Search.removeMinMaxRoll(affixSearch[j].ToLower());
+                                var string2 = Search.toText(itemLine[i].ToLower());
+
+                                // Check if it has variable rolls
+                                if (affixSearch[j].Contains("#"))
+                                {
+                                    if (string1 == string2 && Convert.ToDecimal(Search.toDecimal(itemLine[i])) >= affixValue[j])
+                                    {
+                                        wantedModCount++;
+                                        Print(String.Format("Search {2}: [ Prefix({3}) , {0} >= {1} ]", Search.toDecimal(itemLine[i]), affixValue[j], j + 1, AmPrefix[j]));
+                                    }
+                                }
+                                // Otherwise check the item line and search mod without removing shit
+                                else
+                                {
+                                    if (itemLine[i].ToLower() == affixSearch[j].ToLower())
+                                    {
+                                        wantedModCount++;
+                                        Print(String.Format("Search {0}: {1}]", j + 1, itemLine[i]));
+                                    }
+                                }
                             }
                         }
                     }));
@@ -190,7 +256,7 @@ namespace PoECrafter
 
         public async Task RunSearch()
         {
-            ItemInfoTextBoxParsed.Clear();
+            //ItemInfoTextBoxParsed.Clear();
 
             string[] ItemData = Item.SplitLines(ItemInfoTextBox.Text);
             string[] WantedModsText = { itemMod1.Text, itemMod2.Text, itemMod3.Text, itemMod4.Text, itemMod5.Text, itemMod6.Text };
@@ -212,11 +278,11 @@ namespace PoECrafter
             {
                 try
                 {
+                    
                     // Add your logic inside here
                     await Item.CopyData(trackBar1.Value);
                     ItemInfoTextBox.Text = Clipboard.GetText();
                     await RunSearch();
-
                     // break if our mod count is same or higher than our wanted mod count before even touching it with craft mats
                     if (wantedModCount >= SelectedModCount.Value)
                         return;
@@ -233,13 +299,80 @@ namespace PoECrafter
 
                         // break if our mod count is same or higher than our wanted mod count
                         if (wantedModCount >= SelectedModCount.Value)
-                            break; 
+                            break;
                     }
-                }
-                catch (Exception)
-                {
+                    
 
-                    throw;
+                    /*
+                    for (var i = 0; i < selectedLoopCount.Value; i++)
+                    {
+                        await Item.CopyData(trackBar1.Value);
+                        storedItem = Clipboard.GetText();
+
+                        string Mod1 = "#% increased Recovery Speed";
+                        string Mod2 = "Immunity to Bleeding during Flask effect";
+
+                        if (ModValue(Mod1) == 50 && ModValue(Mod2) == 1)
+                        {
+                            Print("Found Both Mods - Stopping");
+                            break;
+                        }
+
+                        // if mod 1 false && mod 2 false
+                        if (ModValue(Mod1) != 50 && ModValue(Mod2) == 0)
+                        {
+                            await Item.Alteration(trackBar1.Value);
+                        }
+
+                        // If mod 1 true && mod 2 false
+                        else if (ModValue(Mod1) == 50 && ModValue(Mod2) == 0)
+                        {
+                            await Item.Augmentation(trackBar1.Value);
+                            await Item.CopyData(trackBar1.Value);
+                            storedItem = Clipboard.GetText();
+
+                            if (ModValue(Mod1) == 50 && ModValue(Mod2) == 1)
+                            {
+                                Print("Found Both Mods - Stopping");
+                                break;
+                            }
+                            else
+                            {
+                                await Item.Alteration(trackBar1.Value);
+                            }
+                        }
+
+                        // If mod 1 false && mod 2 true
+                        else if (ModValue(Mod1) != 50 && ModValue(Mod2) == 1)
+                        {
+                            await Item.Augmentation(trackBar1.Value);
+                            await Item.CopyData(trackBar1.Value);
+                            storedItem = Clipboard.GetText();
+
+                            if (ModValue(Mod1) == 50 && ModValue(Mod2) == 1)
+                            {
+                                Print("Found Both Mods - Stopping");
+                                break;
+                            }
+                            else
+                            {
+                                await Item.Alteration(trackBar1.Value);
+                            }
+                        }
+                    }
+                    */
+                }
+                catch (Exception ex)
+                {
+                    // Get stack trace for the exception with source file information
+                    var st = new StackTrace(ex, true);
+                    // Get the top stack frame
+                    var frame = st.GetFrame(0);
+                    // Get the line number from the stack frame
+                    var line = frame.GetFileLineNumber();
+
+                    Print(st);
+                    Print(line);
                 }
             }
             else
@@ -1146,6 +1279,47 @@ namespace PoECrafter
             Properties.Settings.Default.Location = this.Location;
             Properties.Settings.Default.AddedDelay = trackBar1.Value;
             Properties.Settings.Default.Save();
+        }
+
+        public decimal ModValue(string modToSearch)
+        {
+            string[] ItemLine = Item.SplitLines(storedItem);
+
+            for (int i = 0; i < ItemLine.Length; i++)
+            {
+                var string1 = Search.removeMinMaxRoll(modToSearch.ToLower());
+                var string2 = Search.toText(ItemLine[i].ToLower());
+
+                // Check if it has variable rolls
+                if (modToSearch.Contains("#"))
+                {
+                    if (string1 == string2)
+                    {
+                        //Print(String.Format("Line {0}: {1}]", i + 1, ItemLine[i]));
+                        return Search.toDecimal(ItemLine[i]);
+                    }
+                }
+                // Otherwise check the item line and search mod without removing shit
+                else
+                {
+                    if (ItemLine[i].ToLower() == modToSearch.ToLower())
+                    {
+                        //Print(String.Format("Line {0}: {1}]", i + 1, ItemLine[i]));
+                        return 1;
+                    }
+                }
+            }
+
+            return 0;
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == 0x0312 && m.WParam.ToInt32() == MYACTION_HOTKEY_ID)
+            {
+                this.Close();
+            }
+            base.WndProc(ref m);
         }
     }
 
