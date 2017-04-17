@@ -296,6 +296,7 @@
       { "AffixName": "#% reduced Duration", "Prefix": true },
       { "AffixName": "#% increased effect", "Prefix": true },
       { "AffixName": "#% reduced Charges used", "Prefix": true },
+      { "AffixName": "#% increased Duration", "Prefix": true },
       { "AffixName": " ", "Prefix": true },
       { "AffixName": "Immunity to Freeze and Chill during Flask effect", "Prefix": false },
       { "AffixName": "Immunity to Bleeding during Flask effect", "Prefix": false },
