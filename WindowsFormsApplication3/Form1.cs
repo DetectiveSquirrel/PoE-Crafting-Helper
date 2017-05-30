@@ -8,6 +8,31 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using WindowsFormsApplication3;
 using System.Threading.Tasks;
+using System.Management;
+using System.Linq;
+
+/* TO DO
+    Add function to calculate how many prefix/affix it has (based on the table loaded)
+        I think i can run a loop function to populate a affix and a suffix array since we already set what the affix type is in the table to begin with
+        e.g
+        
+        foreach (var affix in table.list?)
+        {
+            if (prefix)
+                affix.push to PrefixList
+
+            and same for suffix
+        }
+
+        array[] PrefixList = ["thing1", "thing 2" "etc etc.."];
+        array[] SuffixList = ["thing1", "thing 2" "etc etc.."];
+
+        if need mod = prefix and we have one but wrong one, roll again
+        if need mod = prefix and we dont have one, augment
+        if need mod = prefix and affix and we have either, aug
+        if needed mod
+        
+*/
 
 namespace PoECrafter
 {
@@ -36,8 +61,10 @@ namespace PoECrafter
         [DllImport("user32.dll")]
         public static extern bool ShowWindowAsync(HandleRef hWnd, int nCmdShow);
         [DllImport("user32.dll")]
-        public static extern bool SetForegroundWindow(IntPtr hWnd);
-        public const int SW_RESTORE = 9;
+        public static extern bool SetForegroundWindow(IntPtr WindowHandle);
+        [DllImport("user32.dll")]
+        private static extern int ShowWindow(IntPtr hWnd, uint Msg);
+        private const uint SW_RESTORE = 0x09;
         [DllImport("user32.dll")]
         static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
         [DllImport("user32.dll", SetLastError = true)]
@@ -1215,28 +1242,64 @@ namespace PoECrafter
             else
                 AffixType6.Text = "Suffix";
         }
-        #endregion
-
-        // Focus Path of Exile Window
-        public static bool FocusPoE()
+        #endregion       
+        
+        // Generate list of processors to select from if its not wokring right
+        public void GenerateGetProcessors()
         {
-            foreach (Process p in Process.GetProcesses("."))
+            var wmiQueryString = "SELECT ProcessId, ExecutablePath, CommandLine FROM Win32_Process";
+            using (var searcher = new ManagementObjectSearcher(wmiQueryString))
+            using (var results = searcher.Get())
             {
-                try
+                var query = from p in Process.GetProcesses()
+                            join mo in results.Cast<ManagementObject>()
+                            on p.Id equals (int)(uint)mo["ProcessId"]
+                            select new
+                            {
+                                Process = p,
+                                Path = (string)mo["ExecutablePath"],
+                                CommandLine = (string)mo["CommandLine"],
+                            };
+                foreach (var item in query)
                 {
-                    if (p.MainWindowTitle.Length > 0)
+                    // Do what you want with the Process, Path, and CommandLine
+                    if (item.Process.MainWindowTitle != "")
                     {
-
-                        if (p.MainWindowTitle.Contains("Path of Exile"))
-                        {
-                            SetForegroundWindow(p.MainWindowHandle);
-                            return true;
-                        }
+                        processList.Items.Add(new ComboBoxItemProcesses(item.Process.MainWindowTitle + " - [" + item.Process.StartTime.ToShortTimeString() + "]", item.Process.MainWindowHandle));
                     }
                 }
-                catch (Exception ex)
+            }
+        }
+
+        // Focus Path of Exile Window
+        public bool FocusPoE()
+        {
+            if (processList.SelectedIndex == -1)
+            {
+                foreach (Process p in Process.GetProcesses("."))
                 {
+                    try
+                    {
+                        if (p.MainWindowTitle.Length > 0)
+                        {
+
+                            if (p.MainWindowTitle.Contains("Path of Exile"))
+                            {
+                                SetForegroundWindow(p.MainWindowHandle);
+                                return true;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                    }
                 }
+            }
+            else
+            {
+                ShowWindow(((ComboBoxItemProcesses)processList.SelectedItem).HiddenValue, SW_RESTORE);
+                SetForegroundWindow(((ComboBoxItemProcesses)processList.SelectedItem).HiddenValue);
+                return true;
             }
 
             return false;
@@ -1266,6 +1329,8 @@ namespace PoECrafter
             DelayNumber.Text = Properties.Settings.Default.AddedDelay.ToString();
             trackBar1.Value = Properties.Settings.Default.AddedDelay;
             alwaysOnTopToolStripMenuItem.Checked = Properties.Settings.Default.AlwaysOnTop;
+
+            GenerateGetProcessors();
             UpdateLocations();
         }
 
@@ -1320,6 +1385,12 @@ namespace PoECrafter
                 this.Close();
             }
             base.WndProc(ref m);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            processList.Items.Clear();
+            GenerateGetProcessors();
         }
     }
 
@@ -1519,6 +1590,34 @@ namespace PoECrafter
         public override string ToString()
         {
             return DisaplayText;
+        }
+    }
+
+    public class ComboBoxItemProcesses
+    {
+        string DisplayText;
+        IntPtr Value;
+
+        //Constructor
+        public ComboBoxItemProcesses(string a, IntPtr b)
+        {
+            DisplayText = a;
+            Value = b;
+        }
+
+        //Accessor
+        public IntPtr HiddenValue
+        {
+            get
+            {
+                return Value;
+            }
+        }
+
+        //Override ToString method
+        public override string ToString()
+        {
+            return DisplayText;
         }
     }
 }

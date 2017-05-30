@@ -63,6 +63,9 @@
             this.SelectedModCount = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.selectedLoopCount = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.processList = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.itemMod1Value)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemMod2Value)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemMod3Value)).BeginInit();
@@ -97,7 +100,9 @@
             // 
             // itemMod1
             // 
-            this.itemMod1.FormattingEnabled = true;
+            this.itemMod1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.itemMod1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.itemMod1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.itemMod1.Location = new System.Drawing.Point(70, 146);
             this.itemMod1.Name = "itemMod1";
             this.itemMod1.Size = new System.Drawing.Size(286, 21);
@@ -106,6 +111,7 @@
             // 
             // itemMod2
             // 
+            this.itemMod2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.itemMod2.FormattingEnabled = true;
             this.itemMod2.Location = new System.Drawing.Point(70, 173);
             this.itemMod2.Name = "itemMod2";
@@ -143,9 +149,10 @@
             // 
             // buttonTestItem
             // 
-            this.buttonTestItem.Location = new System.Drawing.Point(443, 38);
+            this.buttonTestItem.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonTestItem.Location = new System.Drawing.Point(444, 60);
             this.buttonTestItem.Name = "buttonTestItem";
-            this.buttonTestItem.Size = new System.Drawing.Size(416, 49);
+            this.buttonTestItem.Size = new System.Drawing.Size(416, 73);
             this.buttonTestItem.TabIndex = 7;
             this.buttonTestItem.Text = "Start Crafting";
             this.buttonTestItem.UseVisualStyleBackColor = true;
@@ -153,6 +160,7 @@
             // 
             // itemTypeBox
             // 
+            this.itemTypeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.itemTypeBox.FormattingEnabled = true;
             this.itemTypeBox.Items.AddRange(new object[] {
             "Cobalt Jewels",
@@ -210,7 +218,7 @@
             "Hybrid Flask",
             "Utility Flask",
             "Diamond Flask"});
-            this.itemTypeBox.Location = new System.Drawing.Point(126, 40);
+            this.itemTypeBox.Location = new System.Drawing.Point(127, 60);
             this.itemTypeBox.Name = "itemTypeBox";
             this.itemTypeBox.Size = new System.Drawing.Size(293, 21);
             this.itemTypeBox.TabIndex = 9;
@@ -232,6 +240,7 @@
             // 
             // itemMod3
             // 
+            this.itemMod3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.itemMod3.FormattingEnabled = true;
             this.itemMod3.Location = new System.Drawing.Point(70, 200);
             this.itemMod3.Name = "itemMod3";
@@ -255,6 +264,7 @@
             // 
             // itemMod4
             // 
+            this.itemMod4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.itemMod4.FormattingEnabled = true;
             this.itemMod4.Location = new System.Drawing.Point(509, 146);
             this.itemMod4.Name = "itemMod4";
@@ -278,6 +288,7 @@
             // 
             // itemMod5
             // 
+            this.itemMod5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.itemMod5.FormattingEnabled = true;
             this.itemMod5.Location = new System.Drawing.Point(508, 173);
             this.itemMod5.Name = "itemMod5";
@@ -301,6 +312,7 @@
             // 
             // itemMod6
             // 
+            this.itemMod6.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.itemMod6.FormattingEnabled = true;
             this.itemMod6.Location = new System.Drawing.Point(509, 198);
             this.itemMod6.Name = "itemMod6";
@@ -359,7 +371,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(0, 45);
+            this.label7.Location = new System.Drawing.Point(1, 65);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(120, 13);
             this.label7.TabIndex = 24;
@@ -429,7 +441,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(0, 69);
+            this.label3.Location = new System.Drawing.Point(1, 89);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(100, 13);
             this.label3.TabIndex = 29;
@@ -437,7 +449,7 @@
             // 
             // SelectedModCount
             // 
-            this.SelectedModCount.Location = new System.Drawing.Point(126, 67);
+            this.SelectedModCount.Location = new System.Drawing.Point(127, 87);
             this.SelectedModCount.Maximum = new decimal(new int[] {
             6,
             0,
@@ -451,7 +463,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(0, 95);
+            this.label4.Location = new System.Drawing.Point(1, 115);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(103, 13);
             this.label4.TabIndex = 31;
@@ -459,7 +471,7 @@
             // 
             // selectedLoopCount
             // 
-            this.selectedLoopCount.Location = new System.Drawing.Point(126, 93);
+            this.selectedLoopCount.Location = new System.Drawing.Point(127, 113);
             this.selectedLoopCount.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -470,11 +482,44 @@
             this.selectedLoopCount.TabIndex = 32;
             this.selectedLoopCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(1, 34);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(88, 13);
+            this.label1.TabIndex = 33;
+            this.label1.Text = "Process Override";
+            // 
+            // processList
+            // 
+            this.processList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.processList.FormattingEnabled = true;
+            this.processList.Location = new System.Drawing.Point(95, 31);
+            this.processList.Name = "processList";
+            this.processList.Size = new System.Drawing.Size(737, 21);
+            this.processList.TabIndex = 34;
+            // 
+            // button1
+            // 
+            this.button1.BackgroundImage = global::PoECrafter.Properties.Resources._21x21_REFRESH;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.button1.Location = new System.Drawing.Point(838, 31);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(21, 21);
+            this.button1.TabIndex = 35;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(866, 634);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.processList);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.selectedLoopCount);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.SelectedModCount);
@@ -566,6 +611,9 @@
         private System.Windows.Forms.NumericUpDown SelectedModCount;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown selectedLoopCount;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox processList;
+        private System.Windows.Forms.Button button1;
     }
 }
 
