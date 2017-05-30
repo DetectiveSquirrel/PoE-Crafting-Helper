@@ -93,6 +93,9 @@ namespace PoECrafter
         string storedItem; // Stored item data i guess from copy
         int wantedModCount = 0;
 
+        List<string> currentPrefixList = new List<string>();
+        List<string> currentSuffixList = new List<string>();
+
 
         // Locations
         public class CraftingLocation
@@ -187,10 +190,10 @@ namespace PoECrafter
 
         public async void ItemInfoTextBox_TextChanged(object sender, EventArgs e)
         {
-            //await RunSearch();
+            await RunSearch();
         }
 
-        public async Task FindMods(string[] itemLine, string[] affixSearch, decimal[] affixValue, bool[] AmPrefix)
+        public async Task FindMods(string[] itemLines, string[] affixSearch, decimal[] affixValue, bool[] IsPrefix)
         {
             await Task.Run(() =>
             {
@@ -200,31 +203,33 @@ namespace PoECrafter
                     this.Invoke(new MethodInvoker(delegate
                     {
                         // load the control with the appropriate data
+
+                        ItemInfoTextBoxParsed.Clear();
                         wantedModCount = 0;
-                        for (int i = 0; i < itemLine.Length; i++)
+                        for (int i = 0; i < itemLines.Length; i++)
                         {
                             for (int j = 0; j < affixValue.Length; j++)
                             {
 
                                 var string1 = Search.removeMinMaxRoll(affixSearch[j].ToLower());
-                                var string2 = Search.toText(itemLine[i].ToLower());
+                                var string2 = Search.toText(itemLines[i].ToLower());
 
                                 // Check if it has variable rolls
                                 if (affixSearch[j].Contains("#"))
                                 {
-                                    if (string1 == string2 && Convert.ToDecimal(Search.toDecimal(itemLine[i])) >= affixValue[j])
+                                    if (string1 == string2 && Convert.ToDecimal(Search.toDecimal(itemLines[i])) >= affixValue[j])
                                     {
                                         wantedModCount++;
-                                        Print(String.Format("Search {2}: [ Prefix({3}) , {0} >= {1} ]", Search.toDecimal(itemLine[i]), affixValue[j], j + 1, AmPrefix[j]));
+                                        Print(String.Format("Search {2}: [ Prefix({3}) , {0} >= {1} ]", Search.toDecimal(itemLines[i]), affixValue[j], j + 1, IsPrefix[j]));
                                     }
                                 }
                                 // Otherwise check the item line and search mod without removing shit
                                 else
                                 {
-                                    if (itemLine[i].ToLower() == affixSearch[j].ToLower())
+                                    if (itemLines[i].ToLower() == affixSearch[j].ToLower())
                                     {
                                         wantedModCount++;
-                                        Print(String.Format("Search {0}: {1}]", j + 1, itemLine[i]));
+                                        Print(String.Format("Search {0}: {1}", j + 1, itemLines[i]));
                                     }
                                 }
                             }
@@ -235,55 +240,64 @@ namespace PoECrafter
             });
         }
 
-        // Use this if you want to do custom mod searching
-        public async Task CustomFindMods(string[] itemLine, string[] affixSearch, decimal[] affixValue, bool[] AmPrefix)
+        private Task<int> FindPrefixCountAsync(string[] ItemLines)
         {
-            await Task.Run(() =>
+            return Task.Run<int>(() => FindPrefixCount(ItemLines));
+        }
+
+        public int FindPrefixCount(string[] ItemLines)
+        {
+            int count = 0;
+
+            for (int a = 0; a < ItemLines.Length; a++)
             {
-                if (InvokeRequired)
+                for (int b = 0; b < currentPrefixList.Count; b++)
                 {
-                    // after we've done all the processing, 
-                    this.Invoke(new MethodInvoker(delegate
+                    string ItemString = Search.toText(ItemLines[a].ToLower());
+                    string ListString = currentPrefixList[b].ToLower();
+
+                    if (ItemString == ListString)
                     {
-                        // load the control with the appropriate data
-                        wantedModCount = 0;
-                        for (int i = 0; i < itemLine.Length; i++)
-                        {
-                            for (int j = 0; j < affixValue.Length; j++)
-                            {
+                        //Print("Prefix: " + ItemLines[a]);
+                        count++;
+                    }
 
-                                var string1 = Search.removeMinMaxRoll(affixSearch[j].ToLower());
-                                var string2 = Search.toText(itemLine[i].ToLower());
-
-                                // Check if it has variable rolls
-                                if (affixSearch[j].Contains("#"))
-                                {
-                                    if (string1 == string2 && Convert.ToDecimal(Search.toDecimal(itemLine[i])) >= affixValue[j])
-                                    {
-                                        wantedModCount++;
-                                        Print(String.Format("Search {2}: [ Prefix({3}) , {0} >= {1} ]", Search.toDecimal(itemLine[i]), affixValue[j], j + 1, AmPrefix[j]));
-                                    }
-                                }
-                                // Otherwise check the item line and search mod without removing shit
-                                else
-                                {
-                                    if (itemLine[i].ToLower() == affixSearch[j].ToLower())
-                                    {
-                                        wantedModCount++;
-                                        Print(String.Format("Search {0}: {1}]", j + 1, itemLine[i]));
-                                    }
-                                }
-                            }
-                        }
-                    }));
-                    return;
                 }
-            });
+            }
+
+            return count;
+        }
+
+        private Task<int> FindSuffixCountAsync(string[] ItemLines)
+        {
+            return Task.Run<int>(() => FindSuffixCount(ItemLines));
+        }
+
+        public int FindSuffixCount(string[] ItemLines)
+        {
+            int suffixCount = 0;
+
+            for (int a = 0; a < ItemLines.Length; a++)
+            {
+                for (int b = 0; b < currentSuffixList.Count; b++)
+                {
+                    string ItemString = Search.toText(ItemLines[a].ToLower());
+                    string ListString = currentSuffixList[b].ToLower();
+
+                    if (ItemString == ListString)
+                    {
+                        //Print("Prefix: " + ItemLines[a]);
+                        suffixCount++;
+                    }
+
+                }
+            }
+
+            return suffixCount;
         }
 
         public async Task RunSearch()
         {
-            //ItemInfoTextBoxParsed.Clear();
 
             string[] ItemData = Item.SplitLines(ItemInfoTextBox.Text);
             string[] WantedModsText = { itemMod1.Text, itemMod2.Text, itemMod3.Text, itemMod4.Text, itemMod5.Text, itemMod6.Text };
@@ -300,12 +314,11 @@ namespace PoECrafter
 
         private async void buttonTestItem_Click(object sender, EventArgs e)
         {
-
             if (FocusPoE())
             {
                 try
                 {
-                    
+
                     // Add your logic inside here
                     await Item.CopyData(trackBar1.Value);
                     ItemInfoTextBox.Text = Clipboard.GetText();
@@ -314,11 +327,23 @@ namespace PoECrafter
                     if (wantedModCount >= SelectedModCount.Value)
                         return;
 
+                    int wantedPrefixCount = 0;
+                    int wantedSuffixCount = 0;
+
+                    // just checking each box to see the selected prefix/suffix counts
+                    if (itemMod1.Text != "None" && itemMod1.Text != " ") { if (((ComboBoxItem)itemMod1.SelectedItem).AffixMod == true) { wantedPrefixCount++; } else { wantedSuffixCount++; } }
+                    if (itemMod2.Text != "None" && itemMod2.Text != " ") { if (((ComboBoxItem)itemMod2.SelectedItem).AffixMod == true) { wantedPrefixCount++; } else { wantedSuffixCount++; } }
+                    if (itemMod3.Text != "None" && itemMod3.Text != " ") { if (((ComboBoxItem)itemMod3.SelectedItem).AffixMod == true) { wantedPrefixCount++; } else { wantedSuffixCount++; } }
+                    if (itemMod4.Text != "None" && itemMod4.Text != " ") { if (((ComboBoxItem)itemMod4.SelectedItem).AffixMod == true) { wantedPrefixCount++; } else { wantedSuffixCount++; } }
+                    if (itemMod5.Text != "None" && itemMod5.Text != " ") { if (((ComboBoxItem)itemMod5.SelectedItem).AffixMod == true) { wantedPrefixCount++; } else { wantedSuffixCount++; } }
+                    if (itemMod6.Text != "None" && itemMod6.Text != " ") { if (((ComboBoxItem)itemMod6.SelectedItem).AffixMod == true) { wantedPrefixCount++; } else { wantedSuffixCount++; } }
+
+
                     for (var i = 1; i <= selectedLoopCount.Value; i++)
                     {
                         //Example of alt then aug and check against wanted mods
+
                         await Item.Alteration(trackBar1.Value);
-                        await Item.Augmentation(trackBar1.Value);
                         await Task.Delay(100);
                         await Item.CopyData(trackBar1.Value);
                         ItemInfoTextBox.Text = Clipboard.GetText();
@@ -327,8 +352,33 @@ namespace PoECrafter
                         // break if our mod count is same or higher than our wanted mod count
                         if (wantedModCount >= SelectedModCount.Value)
                             break;
+
+
+                        string[] ItemData = Item.SplitLines(ItemInfoTextBox.Text);
+                        Task<int> suffixCountAsync = Task.Run(async () => { int msg = await FindSuffixCountAsync(ItemData); return msg; });
+                        Task<int> prefixCountAsync = Task.Run(async () => { int msg = await FindPrefixCountAsync(ItemData); return msg; });
+                        int prefixCount = prefixCountAsync.Result;
+                        int suffixCount = suffixCountAsync.Result;
+
+                        // just making sure we dont try to aug when we have both prefix and suffix
+                        bool canAug = true;
+                        if (prefixCount > 0 && suffixCount > 0)
+                            canAug = false;
+
+                        if ((prefixCount == 0 && wantedPrefixCount > 0) || (suffixCount == 0 && wantedSuffixCount > 0) && canAug)
+                        {
+                            await Item.Augmentation(trackBar1.Value);
+                            await Task.Delay(100);
+                            await Item.CopyData(trackBar1.Value);
+                            ItemInfoTextBox.Text = Clipboard.GetText();
+                            await RunSearch();
+
+                            // break if our mod count is same or higher than our wanted mod count
+                            if (wantedModCount >= SelectedModCount.Value)
+                                break;
+                        }
                     }
-                    
+
 
                     /*
                     for (var i = 0; i < selectedLoopCount.Value; i++)
@@ -1160,14 +1210,20 @@ namespace PoECrafter
             itemMod6.SelectedIndex = 0;
         }
 
-        private void PopulateComboBox(string affixName, bool prefix)
+        public void PopulateComboBox(string affixName, bool affix)
         {
-            itemMod1.Items.Add(new ComboBoxItem(affixName, prefix));
-            itemMod2.Items.Add(new ComboBoxItem(affixName, prefix));
-            itemMod3.Items.Add(new ComboBoxItem(affixName, prefix));
-            itemMod4.Items.Add(new ComboBoxItem(affixName, prefix));
-            itemMod5.Items.Add(new ComboBoxItem(affixName, prefix));
-            itemMod6.Items.Add(new ComboBoxItem(affixName, prefix));
+            itemMod1.Items.Add(new ComboBoxItem(affixName, affix));
+            itemMod2.Items.Add(new ComboBoxItem(affixName, affix));
+            itemMod3.Items.Add(new ComboBoxItem(affixName, affix));
+            itemMod4.Items.Add(new ComboBoxItem(affixName, affix));
+            itemMod5.Items.Add(new ComboBoxItem(affixName, affix));
+            itemMod6.Items.Add(new ComboBoxItem(affixName, affix));
+
+            if (affix && affixName != "None" && affixName != " ")
+                currentPrefixList.Add(Search.removeMinMaxRoll(affixName));
+
+            if (!affix && affixName != "None" && affixName != " ")
+                currentSuffixList.Add(Search.removeMinMaxRoll(affixName));
         }
 
         private void itemTypeBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -1178,6 +1234,8 @@ namespace PoECrafter
             itemMod4.Items.Clear();
             itemMod5.Items.Clear();
             itemMod6.Items.Clear();
+            currentPrefixList.Clear();
+            currentSuffixList.Clear();
             LoadComboItems(itemTypeBox.Text);
 
         }
@@ -1242,8 +1300,8 @@ namespace PoECrafter
             else
                 AffixType6.Text = "Suffix";
         }
-        #endregion       
-        
+        #endregion
+
         // Generate list of processors to select from if its not wokring right
         public void GenerateGetProcessors()
         {
@@ -1426,11 +1484,11 @@ namespace PoECrafter
             await Task.Run(async () =>
             {
                 await Form1.MouseTo(Form1.CraftingLocation.Augmentation[0], Form1.CraftingLocation.Augmentation[1]);
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.RightClick();
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.MouseTo(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.LeftClick();
             });
         }
@@ -1440,11 +1498,11 @@ namespace PoECrafter
             await Task.Run(async () =>
             {
                 await Form1.MouseTo(Form1.CraftingLocation.Transmutation[0], Form1.CraftingLocation.Transmutation[1]);
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.RightClick();
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.MouseTo(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.LeftClick();
             });
         }
@@ -1454,11 +1512,11 @@ namespace PoECrafter
             await Task.Run(async () =>
             {
                 await Form1.MouseTo(Form1.CraftingLocation.Alteration[0], Form1.CraftingLocation.Alteration[1]);
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.RightClick();
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.MouseTo(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.LeftClick();
             });
         }
@@ -1468,11 +1526,11 @@ namespace PoECrafter
             await Task.Run(async () =>
             {
                 await Form1.MouseTo(Form1.CraftingLocation.Regal[0], Form1.CraftingLocation.Regal[1]);
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.RightClick();
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.MouseTo(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.LeftClick();
             });
         }
@@ -1482,11 +1540,11 @@ namespace PoECrafter
             await Task.Run(async () =>
             {
                 await Form1.MouseTo(Form1.CraftingLocation.Scour[0], Form1.CraftingLocation.Scour[1]);
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.RightClick();
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.MouseTo(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.LeftClick();
             });
         }
@@ -1496,11 +1554,11 @@ namespace PoECrafter
             await Task.Run(async () =>
             {
                 await Form1.MouseTo(Form1.CraftingLocation.Fusing[0], Form1.CraftingLocation.Fusing[1]);
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.RightClick();
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.MouseTo(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.LeftClick();
             });
         }
@@ -1510,11 +1568,11 @@ namespace PoECrafter
             await Task.Run(async () =>
             {
                 await Form1.MouseTo(Form1.CraftingLocation.Chromatic[0], Form1.CraftingLocation.Chromatic[1]);
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.RightClick();
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.MouseTo(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.LeftClick();
             });
         }
@@ -1524,13 +1582,13 @@ namespace PoECrafter
             await Task.Run(async () =>
             {
                 await Form1.MouseTo(Form1.CraftingLocation.Jeweler[0], Form1.CraftingLocation.Jeweler[1]);
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.RightClick();
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.MouseTo(Form1.CraftingLocation.CraftMat[0], Form1.CraftingLocation.CraftMat[1]);
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
                 await Form1.LeftClick();
-                await Task.Delay(ExtraDelay + 200);
+                await Task.Delay(ExtraDelay + 100);
             });
         }
 
@@ -1562,6 +1620,21 @@ namespace PoECrafter
         public static decimal toDecimal(string text)
         {
             return Convert.ToDecimal(Regex.Replace(text, "[^0-9.]", ""));
+        }
+
+        // return prefix/suffix counts of the item
+        public static int prefixCount()
+        {
+            int count = 0; // starts from zero
+
+            return count;
+        }
+
+        public static int suffixCount()
+        {
+            int count = 0; // starts from zero
+
+            return count;
         }
     }
 

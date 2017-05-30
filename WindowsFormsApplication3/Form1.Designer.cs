@@ -150,7 +150,7 @@
             // buttonTestItem
             // 
             this.buttonTestItem.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonTestItem.Location = new System.Drawing.Point(444, 60);
+            this.buttonTestItem.Location = new System.Drawing.Point(443, 60);
             this.buttonTestItem.Name = "buttonTestItem";
             this.buttonTestItem.Size = new System.Drawing.Size(416, 73);
             this.buttonTestItem.TabIndex = 7;
